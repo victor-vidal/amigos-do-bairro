@@ -1,0 +1,16 @@
+@HOST=http://127.0.0.1:8000/users
+
+### Get Users
+GET {{HOST}}/
+
+### Get User
+GET {{HOST}}/44560372-f816-40f8-9862-4480f2a2242a/
+
+### Post User
+POST {{HOST}}/
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "123"
+}
