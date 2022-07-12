@@ -15,7 +15,7 @@ class BaseRepository:
     def __init__(self, db: Session = Depends(get_db)) -> None:
         self.db = db
         
-    def __commit2db(self, db_instance: models.Base):
+    def commit2db(self, db_instance: models.Base):
         self.db.add(db_instance)
         self.db.commit()
         self.db.refresh(db_instance)
@@ -51,6 +51,8 @@ class BaseRepository:
         db_instance = self.db.query(self.model).filter(
             self.model.id == id
         ).first()
+        
         self.db.delete(db_instance)
         self.db.commit()
+        
         return db_instance

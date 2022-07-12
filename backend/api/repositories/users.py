@@ -5,7 +5,7 @@ from api.utils import get_password_hash
 
 from . import BaseRepository
 
-class UserManager(BaseRepository):
+class UsersRepository(BaseRepository):
     model = models.User
     
     def get_user_by_email(self, user_email: str):
@@ -21,7 +21,7 @@ class UserManager(BaseRepository):
             is_active=True
         )
         
-        return self.__commit2db(db_user)
+        return self.commit2db(db_user)
     
     def put_or_patch(self, id: uuid.UUID, schema: schemas.BaseModel):
         db_user = self.db.query(self.model).filter(
@@ -34,4 +34,4 @@ class UserManager(BaseRepository):
                 
             setattr(db_user, var, value) if value else getattr(db_user, var)
             
-        return self.__commit2db(db_user)
+        return self.commit2db(db_user)

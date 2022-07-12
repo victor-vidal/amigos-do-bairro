@@ -2,6 +2,7 @@
 
 ### Get Users
 GET {{HOST}}/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1NzY0MjAyMH0.tD0HirQbBRaAQ5-CglseEc_JqXodwDAC-qWyhLPq9nQ
 
 ### Get User
 GET {{HOST}}/44560372-f816-40f8-9862-4480f2a2242a/
@@ -11,6 +12,11 @@ POST {{HOST}}/
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "test1@gmail.com",
     "password": "123"
 }
+
+
+### Delete User
+DELETE {{HOST}}/abccd457-2777-4d08-a941-231810ab1f7c/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1NzY0MjAyMH0.tD0HirQbBRaAQ5-CglseEc_JqXodwDAC-qWyhLPq9nQ
