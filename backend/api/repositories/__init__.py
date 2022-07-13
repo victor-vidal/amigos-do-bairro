@@ -34,7 +34,7 @@ class BaseRepository:
             **schema.dict()
         )
         
-        return self.__commit2db(db_instance)
+        return self.commit2db(db_instance)
         
     def put_or_patch(self, id: uuid.UUID, schema: schemas.BaseModel):
         db_instance = self.db.query(self.model).filter(
@@ -45,7 +45,7 @@ class BaseRepository:
             setattr(db_instance, var, value) if value \
                 else getattr(db_instance, var)
                 
-        return self.__commit2db(db_instance)
+        return self.commit2db(db_instance)
     
     def delete(self, id: uuid.UUID):
         db_instance = self.db.query(self.model).filter(

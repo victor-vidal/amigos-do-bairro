@@ -3,9 +3,9 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
-from api.schemas import Token
+from api.schemas import tokens
 from api.authentication import AuthProvider
-from api.exceptions import inactive_user_exception
+from api.exceptions import incorrect_name_or_password_exception
 from api.repositories.users import UsersRepository
 
 from config import settings
@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.post("/token", response_model=Token)
+@router.post("/token", response_model=tokens.Token)
 def get_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), 
     users_repo: UsersRepository = Depends(UsersRepository) ,
@@ -29,7 +29,7 @@ def get_access_token(
         users_repo
     )
     if not user:
-        raise inactive_user_exception
+        raise incorrect_name_or_password_exception
     
     access_token_expires = timedelta(
         minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES

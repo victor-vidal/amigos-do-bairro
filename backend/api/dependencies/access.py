@@ -1,8 +1,8 @@
-from fastapi import Depends, Request
+from fastapi import Depends
 from jose import JWTError, jwt
 
 from api.exceptions import *
-from api.schemas import User, TokenData
+from api.schemas import users, tokens
 from api.authentication import oauth2_scheme
 from api.repositories.users import UsersRepository
 
@@ -23,7 +23,7 @@ def user_exists(
         
         if email is None:
             raise credentials_exception
-        token_data = TokenData(email=email)
+        token_data = tokens.TokenData(email=email)
     except JWTError:
         raise credentials_exception
     
@@ -34,7 +34,7 @@ def user_exists(
     return user
 
 
-def user_is_active(current_user: User = Depends(user_exists)):
+def user_is_active(current_user: users.User = Depends(user_exists)):
     if not current_user.is_active:
         raise inactive_user_exception
     return current_user

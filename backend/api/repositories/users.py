@@ -1,19 +1,19 @@
-import uuid
+from . import *
 
-from api import models, schemas
+from api.schemas import users
+from api.models.users import User
 from api.utils import get_password_hash
 
-from . import BaseRepository
 
 class UsersRepository(BaseRepository):
-    model = models.User
+    model = User
     
     def get_user_by_email(self, user_email: str):
         return self.db.query(self.model).filter(
             self.model.email == user_email
         ).first()
         
-    def create(self, schema: schemas.UserCreate):
+    def create(self, schema: users.UserCreate):
         db_user = self.model(
             id=uuid.uuid4(),
             email=schema.email,
@@ -23,7 +23,7 @@ class UsersRepository(BaseRepository):
         
         return self.commit2db(db_user)
     
-    def put_or_patch(self, id: uuid.UUID, schema: schemas.BaseModel):
+    def put_or_patch(self, id: uuid.UUID, schema: users.UserCreate):
         db_user = self.db.query(self.model).filter(
             self.model.id == id
         ).first()

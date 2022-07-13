@@ -2,7 +2,7 @@
 
 ### Get Users
 GET {{HOST}}/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1NzY0MjAyMH0.tD0HirQbBRaAQ5-CglseEc_JqXodwDAC-qWyhLPq9nQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1Nzc0NTMxN30.iFp_7Rm354VoReQUeGI2J5XShXW6NmeUDdBBzXI-90g
 
 ### Get User
 GET {{HOST}}/44560372-f816-40f8-9862-4480f2a2242a/
@@ -12,7 +12,7 @@ POST {{HOST}}/
 Content-Type: application/json
 
 {
-    "email": "test1@gmail.com",
+    "email": "test@gmail.com",
     "password": "123"
 }
 
