@@ -29,9 +29,7 @@ export default function Welcome() {
       <Text style={styles.title}>Titulo</Text>
       <Text style={styles.text}>Texto</Text>
 
-      <TouchableOpacity 
-      style={styles.button}
-      onPress={ () => navigation.navigate('SignIn')}>
+      <TouchableOpacity style={styles.button} onPress={ () => navigation.navigate('SignIn')}>
         <Text style={styles.buttonText}>Acessar</Text>
       </TouchableOpacity>
     </Animatable.View>
