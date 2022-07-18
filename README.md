@@ -25,6 +25,9 @@ Categorização de queixas (like ou dislike)  <br />
 Seguir queixas  <br /> 
 Resolução de queixas  <br /> 
 
+### Progresso de Atividades
+[Trello](https://trello.com/invite/b/ErlKNhYI/5a93c724bdbf34c08716174379f3b682/amigos-do-bairro)
+
 ## Tecnologias
 
 React Native <br /> 
