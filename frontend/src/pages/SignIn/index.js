@@ -19,10 +19,9 @@ const SignIn = () => {
 
   const navigation = useNavigation();
 
-  // https://stackoverflow.com/questions/60639983/react-native-expo-fetch-throws-network-request-failed
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://localhost:8000/auth", {
+      const response = await fetch("http://127.0.0.1:8000/auth/token", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
@@ -34,12 +33,13 @@ const SignIn = () => {
       });
 
       if (response.ok) {
-        const data = response.json();
-        Alert.alert("Successfull login", `Token: ${data.access_token}`);
+        const data = await response.json();
+        navigation.navigate("MainPage");
+      } else {
+        Alert.alert("Falha no login", "Credenciais inválidas");
       }
     } catch (error) {
       console.log(error);
-      Alert.alert("Failed to login", "Invalid credentials");
     }
   }
 
@@ -62,6 +62,8 @@ const SignIn = () => {
       >
         <Text style={styles.title}>Email</Text>
         <TextInput
+          autoCapitalize="none"
+          autoCorrect={false}
           placeholder='Digite um email..'
           style={styles.input}
           onChangeText={emailInput => setEmail(emailInput)}
@@ -69,6 +71,7 @@ const SignIn = () => {
 
         <Text style={styles.title}>Senha</Text>
         <TextInput
+          secureTextEntry={true}
           placeholder='Sua senha'
           style={styles.input}
           onChangeText={passwordInput => setPassword(passwordInput)}
