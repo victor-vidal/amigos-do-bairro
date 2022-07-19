@@ -6,8 +6,7 @@ x-amigos-common:
       limits:
         memory: 200m
   restart: always
-  networks:
-    - amigos-network
+  network_mode: host
 
 x-amigos-backend-common:
   &amigos-backend-common
@@ -23,8 +22,6 @@ services:
       dockerfile: ./Dockerfile
     expose:
       - 8000
-    ports:
-      - 8000:8000
     volumes:
       - ./backend/:/app
     depends_on:
@@ -36,16 +33,10 @@ services:
     image: postgres:14.1-alpine
     volumes:
       - postgres-db:/data/postgres
-    ports:
-      - "5432:5432"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "amigos-dev"]
       interval: 5s
       retries: 5
-
-networks:
-  amigos-network:
-    driver: bridge
 
 volumes:
   postgres-db:
