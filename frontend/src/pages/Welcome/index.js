@@ -9,7 +9,7 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation } from '@react-navigation/native';
 
-import styles from "./styles.js";
+import { styles } from "./styles.js";
 
 const Welcome = () => {
   const navigation = useNavigation();

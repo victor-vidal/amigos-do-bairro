@@ -11,7 +11,7 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation } from '@react-navigation/native';
 
-import styles from "./styles.js";
+import { styles } from "./styles.js";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ const SignIn = () => {
   // https://stackoverflow.com/questions/60639983/react-native-expo-fetch-throws-network-request-failed
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://192.168.15.189:8000/auth", {
+      const response = await fetch("http://localhost:8000/auth", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
