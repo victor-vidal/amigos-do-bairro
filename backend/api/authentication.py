@@ -2,7 +2,6 @@ from typing import Optional
 from datetime import datetime, timedelta
 
 from jose import jwt
-from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
 from api.utils import *

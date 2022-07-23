@@ -1,6 +1,6 @@
 from . import *
 
-from api.models.complaints import ComplaintCategory
+from api.models.complaints import ComplaintCategory, Complaint
 
 
 class ComplaintCategoriesRepository(BaseRepository):
@@ -10,3 +10,7 @@ class ComplaintCategoriesRepository(BaseRepository):
         return self.db.query(self.model).filter(
             self.model.name == name
         ).first()
+        
+        
+class ComplaintsRepository(BaseRepository):
+    model = Complaint

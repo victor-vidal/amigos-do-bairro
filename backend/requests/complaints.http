@@ -1,5 +1,30 @@
 @HOST=http://127.0.0.1:8000/complaints
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1ODYxMDE3Nn0.lkpUELce_WvymliFNext_ZQ4jOf2qFMJsBQgurtsH0k
 
-### GET Access Token
+### GET Complaint Categories
 GET {{HOST}}/categories
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1Nzc0ODY5MH0.YkAsGDxGHxqZIqJzsxLdoTWMu9BC-pxSBJgEK_CTALY
+Authorization: Bearer {{TOKEN}}
+
+
+### GET Complaints
+GET {{HOST}}/
+Authorization: Bearer {{TOKEN}}
+
+
+### GET Complaints
+POST {{HOST}}/
+Authorization: Bearer {{TOKEN}}
+Content-Type: application/json
+
+{
+    "owner_id": "9d0d65e9-aee3-4927-a15c-e4b098a0541e",
+    "category_id": "1f2eb990-1c92-4e72-8a55-f66a69a55242",
+    "title": "Falta de rampa de acesso",
+    "latitude": 15.2,
+    "longitude": 20.0
+}
+
+
+### GET Complaint
+GET {{HOST}}/7909372e-8533-486b-b836-403154ded70b/
+Authorization: Bearer {{TOKEN}}
