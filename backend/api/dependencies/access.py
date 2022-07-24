@@ -2,7 +2,7 @@ from fastapi import Depends
 from jose import JWTError, jwt
 
 from api.exceptions import *
-from api.schemas import users, tokens
+from api.schemas import users, auth
 from api.authentication import oauth2_scheme
 from api.repositories.users import UsersRepository
 
@@ -23,7 +23,7 @@ def user_exists(
         
         if email is None:
             raise credentials_exception
-        token_data = tokens.TokenData(email=email)
+        token_data = auth.TokenData(email=email)
     except JWTError:
         raise credentials_exception
     

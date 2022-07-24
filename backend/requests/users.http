@@ -1,19 +1,21 @@
 @HOST=http://127.0.0.1:8000/users
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1ODYxMDE3Nn0.lkpUELce_WvymliFNext_ZQ4jOf2qFMJsBQgurtsH0k
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NTg2OTI1MTZ9.VtnsmoudbX1i__3JtIxaRjA6Xom6dBnWpnUcKPcTl-A
 
 ### Get Users
 GET {{HOST}}/
 Authorization: Bearer {{TOKEN}}
 
 ### Get User
-GET {{HOST}}/44560372-f816-40f8-9862-4480f2a2242a/
+GET {{HOST}}/aea40498-b66e-4a81-b265-bdac71eaf4bc/
+Authorization: Bearer {{TOKEN}}
+
 
 ### Post User
 POST {{HOST}}/
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "victorvidal584@gmail.com",
     "password": "123"
 }
 
@@ -21,3 +23,13 @@ Content-Type: application/json
 ### Delete User
 DELETE {{HOST}}/abccd457-2777-4d08-a941-231810ab1f7c/
 Authorization: Bearer {{TOKEN}}
+
+
+### PATCH User
+PATCH {{HOST}}/
+Authorization: Bearer {{TOKEN}}
+Content-Type: application/json
+
+{
+    "password": ""
+}
