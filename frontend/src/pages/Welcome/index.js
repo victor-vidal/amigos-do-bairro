@@ -31,8 +31,8 @@ const Welcome = () => {
         animation="fadeInUp"
         style={styles.containerForm}
       >
-        <Text style={styles.title}>Titulo</Text>
-        <Text style={styles.text}>Texto</Text>
+        <Text style={styles.title}>Amigos do Bairro</Text>
+        <Text style={styles.text}>O jeito mais fácil de denunciar os problemas da região</Text>
 
         <TouchableOpacity
           style={styles.button}

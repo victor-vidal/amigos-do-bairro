@@ -93,6 +93,15 @@ const SignIn = () => {
           </Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          style={styles.buttonRegister}
+          onPress={() => navigation.navigate('ForgotPassword')}
+        >
+          <Text style={styles.buttonRegisterText}>
+            Esqueceu sua senha?
+          </Text>
+        </TouchableOpacity>
+
       </Animatable.View>
 
     </View>
