@@ -22,6 +22,7 @@ class Complaint(Base):
     title = Column(String)
     latitude = Column(Float)
     longitude = Column(Float)
+    image = Column(String)
     
     owner = relationship("User", backref="complaints")
     category = relationship("ComplaintCategory", backref="complaints")

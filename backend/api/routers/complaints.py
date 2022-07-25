@@ -32,8 +32,6 @@ def post_create(
     complaints_repo: ComplaintsRepository = Depends(ComplaintsRepository),
     current_user: users.User = Depends(user_is_active)
 ):
-    
-    
     return complaints_repo.create(schema=complaint)
 
 

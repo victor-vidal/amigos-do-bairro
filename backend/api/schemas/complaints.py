@@ -21,6 +21,7 @@ class ComplaintCreate(BaseModel):
     title: str
     latitude: float
     longitude: float
+    image: str
     
     @validator("owner_id")
     def user_exists(cls, v):
@@ -61,6 +62,7 @@ class Complaint(BaseModel):
     title: str
     latitude: float
     longitude: float
+    image: str
     
     class Config:
         orm_mode = True

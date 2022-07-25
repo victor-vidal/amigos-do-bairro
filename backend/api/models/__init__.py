@@ -12,6 +12,7 @@ from sqlalchemy import (
     Boolean, 
     DateTime, 
     ForeignKey,
+    LargeBinary,
 )
 
 from api.database import Base
