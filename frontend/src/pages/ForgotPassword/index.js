@@ -25,14 +25,14 @@ import { styles } from "./styles.js";
               headers: {
                 "Content-Type": "application/json"
               },
-              body: SON.stringify({
+              body: JSON.stringify({
                 "email": email,
               })
             });
 
             if (response.ok) {
               const data = await response.json();
-              navigation.navigate("CheckForgotPassword",{email: emailInput,});
+              navigation.navigate("CheckForgotPassword", { email: email });
             } else {
               Alert.alert("Falha no login", "Credenciais inválidas");
             }
@@ -69,8 +69,8 @@ import { styles } from "./styles.js";
       
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('CheckForgotPassword')}
-                //onPress={() => handleSubmit()}
+                // onPress={() => navigation.navigate('CheckForgotPassword')}
+                onPress={() => handleSubmit()}
               >
                 <Text style={styles.buttonText}>Continue</Text>
               </TouchableOpacity>

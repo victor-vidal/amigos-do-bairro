@@ -27,7 +27,7 @@ import { styles } from "./styles.js";
               },
               body: new URLSearchParams({
                 "email": props.navigation.email,
-                "number":code
+                "number": code
               })
             });
       
