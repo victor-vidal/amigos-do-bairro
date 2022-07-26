@@ -9,11 +9,13 @@ import {
 
 import * as Animatable from 'react-native-animatable';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from "./styles.js";
 
     const CheckForgotPassword = () => {
+        const route = useRoute();
+
         const [code, setCode] = useState("");
 
         const navigation = useNavigation();
@@ -23,17 +25,17 @@ import { styles } from "./styles.js";
             const response = await fetch("http://127.0.0.1:8000/auth/check_recovery_number", {
               method: "POST",
               headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
+                "Content-Type": "application/json"
               },
-              body: new URLSearchParams({
-                "email": props.navigation.email,
+              body: JSON.stringify({
+                "email": route.params.email,
                 "number": code
               })
             });
       
             if (response.ok) {
               const data = await response.json();
-              navigation.navigate("RedefinePassword");
+              navigation.navigate("RedefinePassword", { token: data.access_token, user_id: data.user_id });
             } else {
               Alert.alert("Falha no login", "Credenciais inválidas");
             }
@@ -70,8 +72,8 @@ import { styles } from "./styles.js";
       
               <TouchableOpacity
                 style={styles.button}
-                onPress={() => navigation.navigate('RedefinePassword')}
-                //onPress={() => handleSubmit()}
+                //onPress={() => navigation.navigate('RedefinePassword')}
+                onPress={() => handleSubmit()}
               >
                 <Text style={styles.buttonText}>Continue</Text>
               </TouchableOpacity>
