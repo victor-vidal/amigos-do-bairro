@@ -23,7 +23,7 @@ class UsersRepository(BaseRepository):
         
         return self.commit2db(db_user)
     
-    def put_or_patch(self, id: uuid.UUID, schema: users.UserCreate):
+    def put_or_patch(self, id: uuid.UUID, schema: users.UserPatch):
         db_user = self.db.query(self.model).filter(
             self.model.id == id
         ).first()
@@ -31,6 +31,7 @@ class UsersRepository(BaseRepository):
         for var, value in vars(schema).items():
             if var == "password":
                 value = get_password_hash(value)
+                var = "hashed_password"
                 
             setattr(db_user, var, value) if value else getattr(db_user, var)
             

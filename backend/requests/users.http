@@ -1,5 +1,5 @@
 @HOST=http://127.0.0.1:8000/users
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodWdvIiwiZXhwIjoxNjU4ODczOTI1fQ.dz0u7fww-37amOaynjmaTXkaAF2Lp5ZUfN9_TmFcyG4
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NTg4NzY0NjJ9.qulIx2mA-RQSC8a7AOB4EzhlO7nCZMEnperR1Mgh_QA
 
 ### Get Users
 GET {{HOST}}/
@@ -26,7 +26,7 @@ Authorization: Bearer {{TOKEN}}
 
 
 ### PATCH User
-PATCH {{HOST}}/1e24f856-cc36-4d46-9ea9-36c36651915a/
+PATCH {{HOST}}/650b83ae-8389-43ba-aae7-54502bda6de2/
 Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 

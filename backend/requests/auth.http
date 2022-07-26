@@ -4,8 +4,8 @@
 POST {{HOST}}/token
 Content-Type: application/x-www-form-urlencoded
 
-&username=hugo
-&password=hugo
+&username=victorvidal584@gmail.com
+&password=098
 
 
 ### Post Create Recovery Number
