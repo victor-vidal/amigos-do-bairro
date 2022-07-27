@@ -63,6 +63,7 @@ def delete(
 @router.patch("/{user_id}", response_model=users.User)
 def patch(
     user_id: uuid.UUID, 
+    user: users.UserPatch,
     users_repo: UsersRepository = Depends(UsersRepository),
     current_user: users.User = Depends(user_is_active)
 ):
@@ -71,12 +72,13 @@ def patch(
     if current_user != db_user:
         raise HTTPException(status_code=403)
     
-    return users_repo.put_or_patch(id=user_id, schema=users.User)
+    return users_repo.put_or_patch(id=user_id, schema=user)
 
 
 @router.put("/{user_id}", response_model=users.User)
 def put(
     user_id: uuid.UUID, 
+    user: users.UserPatch,
     users_repo: UsersRepository = Depends(UsersRepository),
     current_user: users.User = Depends(user_is_active)
 ):
@@ -85,4 +87,4 @@ def put(
     if current_user != db_user:
         raise HTTPException(status_code=403)
     
-    return users_repo.put_or_patch(id=user_id, schema=users.User)
+    return users_repo.put_or_patch(id=user_id, schema=user)

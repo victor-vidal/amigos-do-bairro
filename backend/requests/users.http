@@ -1,22 +1,35 @@
 @HOST=http://127.0.0.1:8000/users
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NTg4NzY0NjJ9.qulIx2mA-RQSC8a7AOB4EzhlO7nCZMEnperR1Mgh_QA
 
 ### Get Users
 GET {{HOST}}/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1Nzc0NTMxN30.iFp_7Rm354VoReQUeGI2J5XShXW6NmeUDdBBzXI-90g
+Authorization: Bearer {{TOKEN}}
 
 ### Get User
-GET {{HOST}}/44560372-f816-40f8-9862-4480f2a2242a/
+GET {{HOST}}/aea40498-b66e-4a81-b265-bdac71eaf4bc/
+Authorization: Bearer {{TOKEN}}
+
 
 ### Post User
 POST {{HOST}}/
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "victorvidal584@gmail.com",
     "password": "123"
 }
 
 
 ### Delete User
 DELETE {{HOST}}/abccd457-2777-4d08-a941-231810ab1f7c/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0QGdtYWlsLmNvbSIsImV4cCI6MTY1NzY0MjAyMH0.tD0HirQbBRaAQ5-CglseEc_JqXodwDAC-qWyhLPq9nQ
+Authorization: Bearer {{TOKEN}}
+
+
+### PATCH User
+PATCH {{HOST}}/650b83ae-8389-43ba-aae7-54502bda6de2/
+Authorization: Bearer {{TOKEN}}
+Content-Type: application/json
+
+{
+    "password": "098"
+}

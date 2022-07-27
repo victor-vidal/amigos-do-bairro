@@ -9,32 +9,35 @@ import {
 
 import * as Animatable from 'react-native-animatable';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { styles } from "./styles.js";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
+const RedefinePassword = () => {
+  //HOOKS
+  const route = useRoute();
+
   const [password, setPassword] = useState("");
 
   const navigation = useNavigation();
 
+  //FUNCTIONS
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/token", {
-        method: "POST",
+      const response = await fetch(`http://127.0.0.1:8000/users/${route.params.user_id}/`, {
+        method: "PATCH",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${route.params.token}`
         },
-        body: new URLSearchParams({
-          "username": email,
+        body: JSON.stringify({
           "password": password,
         })
       });
 
       if (response.ok) {
         const data = await response.json();
-        navigation.navigate("MainPage");
+        navigation.navigate("SignIn");
       } else {
         Alert.alert("Falha no login", "Credenciais inválidas");
       }
@@ -51,7 +54,7 @@ const SignIn = () => {
         style={styles.containerHeader}
       >
         <Text style={styles.message}>
-          Bem-vindo(a)
+          Digite sua nova resenha
         </Text>
       </Animatable.View>
 
@@ -60,47 +63,23 @@ const SignIn = () => {
         delay={500}
         style={styles.containerForm}
       >
-        <Text style={styles.title}>Email</Text>
+        <Text style={styles.title}>Nova senha</Text>
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Digite um email..'
-          style={styles.input}
-          onChangeText={emailInput => setEmail(emailInput)}
-        />
-
-        <Text style={styles.title}>Senha</Text>
-        <TextInput
-          secureTextEntry={true}
-          placeholder='Sua senha'
+          placeholder='Digite a nova senha..'
           style={styles.input}
           onChangeText={passwordInput => setPassword(passwordInput)}
         />
 
         <TouchableOpacity
           style={styles.button}
+          //onPress={() => navigation.navigate('SignIn')}
           onPress={() => handleSubmit()}
         >
-          <Text style={styles.buttonText}>Acessar</Text>
+          <Text style={styles.buttonText}>Finalizar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('Register')}
-        >
-          <Text style={styles.buttonRegisterText}>
-            Não possui conta? Cadastre-se
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('ForgotPassword')}
-        >
-          <Text style={styles.buttonRegisterText}>
-            Esqueceu sua senha?
-          </Text>
-        </TouchableOpacity>
 
       </Animatable.View>
 
@@ -108,4 +87,4 @@ const SignIn = () => {
   );
 }
 
-export { SignIn };
+export { RedefinePassword };
