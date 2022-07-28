@@ -1,13 +1,12 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Ima} from "react-native";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38A69D'
     },
     containerLogo: {
         flex: 2,
-        backgroundColor: '#38A69D',
+        width: '50%',
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -17,27 +16,37 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingStart: '5%',
-        paddingEnd: '5%'
+        paddingEnd: '5%',
     },
+    image: {
+        flex: 2,
+        justifyContent: "center",
+        alignItems: 'center'
+      },
     title: {
-        fontSize: 24,
+        color: '#D67300',
+        fontSize: 30,
         fontWeight: 'bold',
         marginTop: 28,
-        marginBottom: 12
+        marginBottom: 12,
+        alignSelf: 'center',
+        alignItems: 'center'
     },
     text: {
-        color: '#a1a1a1'
+        color: '#1F1F3D',
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        alignItems: 'center'
     },
     button: {
-        position: 'absolute',
-        backgroundColor: '#38A69D',
+        position: 'relative',
+        backgroundColor: '#D67300',
         borderRadius: 50,
-        paddingVertical: 8,
+        paddingVertical: 15,
+        margin: 6,
         width: '60%',
         alignSelf: 'center',
-        bottom: '15%',
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: 'center'
     },
     buttonText: {
         fontSize: 18,
