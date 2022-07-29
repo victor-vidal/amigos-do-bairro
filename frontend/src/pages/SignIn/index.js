@@ -5,6 +5,7 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  ImageBackground
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -45,21 +46,26 @@ const SignIn = () => {
 
   return (
     <View style={styles.container}>
-      <Animatable.View
-        animation={"fadeInLeft"}
-        delay={500}
-        style={styles.containerHeader}
-      >
-        <Text style={styles.message}>
-          Bem-vindo(a)
-        </Text>
-      </Animatable.View>
-
+      <ImageBackground 
+        source={require('../../assets/fundo2.png')}
+        resizeMode="cover"
+        style={styles.image}>
+      
       <Animatable.View
         animation={"fadeInUp"}
         delay={500}
         style={styles.containerForm}
       >
+        <Animatable.View
+        animation={"fadeInLeft"}
+        delay={500}
+        style={styles.containerHeader}
+      >
+        <Text style={styles.message}>
+          Login
+        </Text>
+      </Animatable.View>
+
         <Text style={styles.title}>Email</Text>
         <TextInput
           autoCapitalize="none"
@@ -72,7 +78,7 @@ const SignIn = () => {
         <Text style={styles.title}>Senha</Text>
         <TextInput
           secureTextEntry={true}
-          placeholder='Sua senha'
+          placeholder='Digite sua senha'
           style={styles.input}
           onChangeText={passwordInput => setPassword(passwordInput)}
         />
@@ -103,6 +109,8 @@ const SignIn = () => {
         </TouchableOpacity>
 
       </Animatable.View>
+
+      </ImageBackground>
 
     </View>
   );

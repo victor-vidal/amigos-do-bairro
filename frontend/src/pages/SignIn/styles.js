@@ -1,29 +1,34 @@
 import { StyleSheet } from "react-native";
+import { ImageBackground } from '../SignIn';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38A69D'
+        backgroundColor: '#F47E51'
+        
     },
     containerHeader: {
         marginTop: '14%',
-        marginBottom: '8%',
-        paddingStart: '5%'
+        marginBottom: '2%',
+        paddingStart: '5%',
+        alignItems: 'center'
     },
     message: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#FFF'
+        color: '#F47E51'
     },
     containerForm: {
         flex: 1,
         backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+        marginTop: '70%',
         paddingStart: '5%',
         paddingEnd: '5%'
     },
     title: {
+        color:'#F47E51',
         fontSize: 24,
         fontWeight: 'bold',
         marginTop: 28,
@@ -35,8 +40,12 @@ const styles = StyleSheet.create({
         marginBottom: 12,
         fontSize: 16
     },
+    image: {
+        flex: 2,
+        justifyContent: "center"
+    },
     button: {
-        backgroundColor: '#38A69D',
+        backgroundColor: '#F47E51',
         borderRadius: 4,
         paddingVertical: 8,
         width: '100%',
@@ -54,7 +63,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     buttonRegisterText: {
-        color: '#A1A1A1',
+        color: '#1F1F3D',
     }
 });
 
