@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
     containerForm: {
         flex: 1,
         backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
         paddingStart: '5%',
         paddingEnd: '5%',
     },
@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
         flex: 2,
         justifyContent: "center",
         alignItems: 'center'
+        
       },
     title: {
-        color: '#D67300',
+        color: '#F47E51',
         fontSize: 30,
         fontWeight: 'bold',
         marginTop: 28,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     },
     button: {
         position: 'relative',
-        backgroundColor: '#D67300',
+        backgroundColor: '#F47E51',
         borderRadius: 50,
         paddingVertical: 15,
         margin: 6,

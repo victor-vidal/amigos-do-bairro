@@ -34,7 +34,7 @@ const Welcome = () => {
         
         <View style={{
           flex:1,
-          paddingHorizontal: '10%'
+          paddingHorizontal: '8%'
         }}>
           <Animatable.View
             delay={600}
