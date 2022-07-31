@@ -51,67 +51,65 @@ const SignIn = () => {
         resizeMode="cover"
         style={styles.image}>
       
-      <Animatable.View
-        animation={"fadeInUp"}
-        delay={500}
-        style={styles.containerForm}
-      >
         <Animatable.View
-        animation={"fadeInLeft"}
-        delay={500}
-        style={styles.containerHeader}
-      >
-        <Text style={styles.message}>
-          Login
-        </Text>
-      </Animatable.View>
-
-        <Text style={styles.title}>Email</Text>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder='Digite um email..'
-          style={styles.input}
-          onChangeText={emailInput => setEmail(emailInput)}
-        />
-
-        <Text style={styles.title}>Senha</Text>
-        <TextInput
-          secureTextEntry={true}
-          placeholder='Digite sua senha'
-          style={styles.input}
-          onChangeText={passwordInput => setPassword(passwordInput)}
-        />
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => handleSubmit()}
+          animation={"fadeInUp"}
+          delay={500}
+          style={styles.containerForm}
         >
-          <Text style={styles.buttonText}>Acessar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('Register')}
-        >
-          <Text style={styles.buttonRegisterText}>
-            Não possui conta? Cadastre-se
+          <Animatable.Image
+            delay={900}
+            source={require('../../assets/logo.png')}
+            style={styles.logo}
+            resizeMode="cover"
+          />
+          
+          <Text style={styles.message}>
+            Login
           </Text>
-        </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('ForgotPassword')}
-        >
-          <Text style={styles.buttonRegisterText}>
-            Esqueceu sua senha?
-          </Text>
-        </TouchableOpacity>
+          <Text style={styles.title}>Email</Text>
+          <TextInput
+            autoCapitalize="none"
+            autoCorrect={false}
+            placeholder='Digite um email..'
+            style={styles.input}
+            onChangeText={emailInput => setEmail(emailInput)}
+          />
 
-      </Animatable.View>
+          <Text style={styles.title}>Senha</Text>
+          <TextInput
+            secureTextEntry={true}
+            placeholder='Digite sua senha'
+            style={styles.input}
+            onChangeText={passwordInput => setPassword(passwordInput)}
+          />
 
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => handleSubmit()}
+          >
+            <Text style={styles.buttonText}>Acessar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonRegister}
+            onPress={() => navigation.navigate('Register')}
+          >
+            <Text style={styles.buttonRegisterText}>
+              Não possui conta? Cadastre-se
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttonRegister}
+            onPress={() => navigation.navigate('ForgotPassword')}
+          >
+            <Text style={styles.buttonRegisterText}>
+              Esqueceu sua senha?
+            </Text>
+          </TouchableOpacity>
+        </Animatable.View>
       </ImageBackground>
-
     </View>
   );
 }

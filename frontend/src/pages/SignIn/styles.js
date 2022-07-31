@@ -5,48 +5,48 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#F47E51'
-        
-    },
-    containerHeader: {
-        marginTop: '14%',
-        marginBottom: '2%',
-        paddingStart: '5%',
-        alignItems: 'center'
     },
     message: {
-        fontSize: 28,
+        fontSize: 25,
         fontWeight: 'bold',
-        color: '#F47E51'
+        color: '#F47E51',
+        alignSelf: 'center'
     },
     containerForm: {
         flex: 1,
         backgroundColor: '#FFF',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
-        marginTop: '70%',
+        marginTop: '80%',
         paddingStart: '5%',
         paddingEnd: '5%'
     },
     title: {
         color:'#F47E51',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: 'bold',
-        marginTop: 28,
+        marginTop: 1,
         marginBottom: 12
     },
     input: {
         borderBottomWidth: 1,
         height: 40,
-        marginBottom: 12,
+        marginBottom: 15,
         fontSize: 16
     },
     image: {
         flex: 2,
         justifyContent: "center"
     },
+    logo:{
+        width: '24%',
+        height:'19%',
+        alignSelf: 'center',
+        margin: '1%'
+    },
     button: {
         backgroundColor: '#F47E51',
-        borderRadius: 4,
+        borderRadius: 50,
         paddingVertical: 8,
         width: '100%',
         alignItems: 'center',

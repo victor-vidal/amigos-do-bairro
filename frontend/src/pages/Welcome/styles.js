@@ -4,19 +4,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    containerLogo: {
-        flex: 2,
-        width: '50%',
-        justifyContent: 'center',
-        alignItems: 'center'
+    logo:{
+        width: '45%',
+        height:'40%',
+        alignSelf: 'center',
+        marginTop: '2%'
     },
     containerForm: {
         flex: 1,
         backgroundColor: '#FFF',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
+        marginTop: 430,
+        paddingTop: '1%',
         paddingStart: '5%',
-        paddingEnd: '5%',
+        paddingEnd: '5%'
     },
     image: {
         flex: 2,
@@ -28,8 +30,8 @@ const styles = StyleSheet.create({
         color: '#F47E51',
         fontSize: 30,
         fontWeight: 'bold',
-        marginTop: 28,
-        marginBottom: 12,
+        marginTop: 10,
+        marginBottom: 10,
         alignSelf: 'center',
         alignItems: 'center'
     },
