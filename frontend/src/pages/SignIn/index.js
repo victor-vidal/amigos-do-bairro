@@ -12,6 +12,9 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { apiUrl } from '../../utils/apiUrl.js';
+import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
+
 import { styles } from "./styles.js";
 
 const SignIn = () => {
@@ -22,15 +25,15 @@ const SignIn = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/auth/token", {
+      const response = await fetchWithTimeout(`${apiUrl}/auth/token`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/json"
         },
-        body: new URLSearchParams({
-          "username": email,
-          "password": password,
-        })
+        body: JSON.stringify({
+          username: email,
+          password: password,
+        }),
       });
 
       if (response.ok) {
@@ -40,7 +43,7 @@ const SignIn = () => {
         Alert.alert("Falha no login", "Credenciais inválidas");
       }
     } catch (error) {
-      console.log(error);
+      Alert.alert("Falha no login", "Algo deu errado");
     }
   }
 

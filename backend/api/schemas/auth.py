@@ -1,6 +1,11 @@
 from . import *
 
 
+class AuthData(BaseModel):
+    username: str
+    password: str
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -22,6 +27,7 @@ class RecoveryNumberCreate(BaseModel):
 class RecoveryNumberCheck(BaseModel):
     email: str
     number: int
+    
     
 class RecoveryNumberTry(BaseModel):
     tries: int

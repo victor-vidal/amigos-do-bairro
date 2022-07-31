@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { ImageBackground } from '../SignIn';
 
 const styles = StyleSheet.create({
     container: {

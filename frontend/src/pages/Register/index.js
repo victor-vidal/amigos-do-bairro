@@ -11,6 +11,9 @@ import * as Animatable from "react-native-animatable";
 
 import { useNavigation } from "@react-navigation/native";
 
+import { apiUrl } from "../../utils/apiUrl.js";
+import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
+
 import { styles } from "./styles.js";
 
 const Register = () => {
@@ -21,7 +24,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/users", {
+      const response = await fetchWithTimeout(`${apiUrl}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
