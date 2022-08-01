@@ -5,6 +5,10 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  SafeAreaView
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -45,42 +49,49 @@ const ForgotPassword = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Animatable.View
-        animation={"fadeInLeft"}
-        delay={500}
-        style={styles.containerHeader}
-      >
-        <Text style={styles.message}>
-          Digite o seu email
-        </Text>
-      </Animatable.View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+            <Animatable.View
+              animation={"fadeInLeft"}
+              delay={500}
+              style={styles.containerHeader}
+            >
+              <Text style={styles.message}>
+                Digite o seu email
+              </Text>
+            </Animatable.View>
 
-      <Animatable.View
-        animation={"fadeInUp"}
-        delay={500}
-        style={styles.containerForm}
-      >
-        <Text style={styles.title}>Email</Text>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder='Digite um email..'
-          style={styles.input}
-          onChangeText={emailInput => setEmail(emailInput)}
-        />
+            <Animatable.View
+              animation={"fadeInUp"}
+              delay={500}
+              style={styles.containerForm}
+            >
+              <Text style={styles.title}>Email</Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder='Digite um email..'
+                style={styles.input}
+                keyboardType="email-address"
+                onChangeText={emailInput => setEmail(emailInput)}
+              />
 
-        <TouchableOpacity
-          style={styles.button}
-          // onPress={() => navigation.navigate('CheckForgotPassword')}
-          onPress={() => handleSubmit()}
-        >
-          <Text style={styles.buttonText}>Continue</Text>
-        </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                // onPress={() => navigation.navigate('CheckForgotPassword')}
+                onPress={() => handleSubmit()}
+              >
+                <Text style={styles.buttonText}>Continue</Text>
+              </TouchableOpacity>
 
-      </Animatable.View>
+            </Animatable.View>
 
-    </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 

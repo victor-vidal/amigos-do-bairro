@@ -5,6 +5,10 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  SafeAreaView
 } from "react-native";
 
 import * as Animatable from "react-native-animatable";
@@ -46,58 +50,65 @@ const Register = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Animatable.View
-        animation={"fadeInLeft"}
-        delay={500}
-        style={styles.containerHeader}
-      >
-        <Text style={styles.message}>
-          Registre-se
-        </Text>
-      </Animatable.View>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+            <Animatable.View
+              animation={"fadeInLeft"}
+              delay={500}
+              style={styles.containerHeader}
+            >
+              <Text style={styles.message}>
+                Registre-se
+              </Text>
+            </Animatable.View>
 
-      <Animatable.View
-        animation={"fadeInUp"}
-        delay={500}
-        style={styles.containerForm}
-      >
-        <Text style={styles.title}>Email</Text>
-        <TextInput
-          autoCapitalize="none"
-          autoCorrect={false}
-          placeholder='Digite um email..'
-          style={styles.input}
-          onChangeText={emailInput => setEmail(emailInput)}
-        />
+            <Animatable.View
+              animation={"fadeInUp"}
+              delay={500}
+              style={styles.containerForm}
+            >
+              <Text style={styles.title}>Email</Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder='Digite um email..'
+                keyboardType="email-address"
+                style={styles.input}
+                onChangeText={emailInput => setEmail(emailInput)}
+              />
 
-        <Text style={styles.title}>Senha</Text>
-        <TextInput
-          secureTextEntry={true}
-          placeholder='Sua senha'
-          style={styles.input}
-          onChangeText={passwordInput => setPassword(passwordInput)}
-        />
+              <Text style={styles.title}>Senha</Text>
+              <TextInput
+                secureTextEntry={true}
+                placeholder='Sua senha'
+                style={styles.input}
+                onChangeText={passwordInput => setPassword(passwordInput)}
+              />
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => handleSubmit()}
-        >
-          <Text style={styles.buttonText}>Registrar</Text>
-        </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleSubmit()}
+              >
+                <Text style={styles.buttonText}>Registrar</Text>
+              </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonRegister}
-          onPress={() => navigation.navigate('SignIn')}
-        >
-          <Text style={styles.buttonRegisterText}>
-            Já possui conta? Acesse
-          </Text>
-        </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('SignIn')}
+              >
+                <Text style={styles.buttonRegisterText}>
+                  Já possui conta? Acesse
+                </Text>
+              </TouchableOpacity>
 
-      </Animatable.View>
+            </Animatable.View>
 
-    </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
