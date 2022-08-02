@@ -2,10 +2,12 @@
 
 ### POST Get Access Token
 POST {{HOST}}/token
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-&username=victorvidal584@gmail.com
-&password=098
+{
+    "username": "victorvidal584@gmail.com",
+    "password": "123"
+}
 
 
 ### Post Create Recovery Number

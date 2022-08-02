@@ -3,7 +3,6 @@ from . import *
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordRequestForm
 
 from api.schemas import auth
 from api.authentication import AuthProvider
@@ -24,7 +23,7 @@ router = APIRouter(
 
 @router.post("/token", response_model=auth.Token)
 def get_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(), 
+    form_data: auth.AuthData, 
     users_repo: UsersRepository = Depends(UsersRepository),
     auth_provider: AuthProvider = Depends(AuthProvider)
 ):

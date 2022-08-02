@@ -11,6 +11,9 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { apiUrl } from '../../utils/apiUrl.js';
+import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
+
 import { styles } from "./styles.js";
 
     const CheckForgotPassword = () => {
@@ -22,7 +25,7 @@ import { styles } from "./styles.js";
       
         const handleSubmit = async () => {
           try {
-            const response = await fetch("http://127.0.0.1:8000/auth/check_recovery_number", {
+            const response = await fetchWithTimeout(`${apiUrl}/auth/check_recovery_number`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

@@ -5,12 +5,19 @@ import {
   Alert,
   TextInput,
   TouchableOpacity,
-  ImageBackground
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableWithoutFeedback,
+  SafeAreaView
 } from "react-native";
 
 import * as Animatable from "react-native-animatable";
 
 import { useNavigation } from "@react-navigation/native";
+
+import { apiUrl } from "../../utils/apiUrl.js";
+import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
 
 import { styles } from "./styles.js";
 
@@ -22,7 +29,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/users", {
+      const response = await fetchWithTimeout(`${apiUrl}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -44,78 +51,65 @@ const Register = () => {
   }
 
   return (
-    <View style={styles.container}>
-
-        <ImageBackground 
-          source={require('../../assets/fundo3.png')}
-          resizeMode="cover"
-          style={styles.image}>
-
-          <Animatable.View
-            animation={"fadeInUp"}
-            delay={500}
-            style={styles.containerForm}
-          >
-            <Animatable.Image
-              delay={900}
-              source={require('../../assets/logo.png')}
-              style={styles.logo}
-              resizeMode="cover"
-            />
-
-            <Text style={styles.message}>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+            <Animatable.View
+              animation={"fadeInLeft"}
+              delay={500}
+              style={styles.containerHeader}
+            >
+              <Text style={styles.message}>
                 Registre-se
               </Text>
-            
-            <Text style={styles.title}>Email</Text>
-            <TextInput
-              autoCapitalize="none"
-              autoCorrect={false}
-              placeholder='Digite o email de cadastro.'
-              style={styles.input}
-              onChangeText={emailInput => setEmail(emailInput)}
-            />
+            </Animatable.View>
 
-            <Text style={styles.title}>
-              Senha
-            </Text>
-
-            <TextInput
-              secureTextEntry={true}
-              placeholder='Digite sua senha..'
-              style={styles.input}
-              onChangeText={passwordInput => setPassword(passwordInput)}
-            />
-
-            <Text style={styles.title}>
-              Confirmar Senha 
-            </Text>
-
-            <TextInput
-              secureTextEntry={true}
-              placeholder='Digite novamente sua senha.'
-              style={styles.input}
-              onChangeText={passwordInput => setPassword(passwordInput)}
-            />
-
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handleSubmit()}
+            <Animatable.View
+              animation={"fadeInUp"}
+              delay={500}
+              style={styles.containerForm}
             >
-              <Text style={styles.buttonText}>Confirmar</Text>
-            </TouchableOpacity>
+              <Text style={styles.title}>Email</Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCorrect={false}
+                placeholder='Digite um email..'
+                keyboardType="email-address"
+                style={styles.input}
+                onChangeText={emailInput => setEmail(emailInput)}
+              />
 
-            <TouchableOpacity
-              style={styles.buttonRegister}
-              onPress={() => navigation.navigate('SignIn')}
-            >
-              <Text style={styles.buttonRegisterText}>
-                Já possui conta? Acesse
-              </Text>
-            </TouchableOpacity>
-          </Animatable.View>
-        </ImageBackground>
-    </View>
+              <Text style={styles.title}>Senha</Text>
+              <TextInput
+                secureTextEntry={true}
+                placeholder='Sua senha'
+                style={styles.input}
+                onChangeText={passwordInput => setPassword(passwordInput)}
+              />
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleSubmit()}
+              >
+                <Text style={styles.buttonText}>Registrar</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.buttonRegister}
+                onPress={() => navigation.navigate('SignIn')}
+              >
+                <Text style={styles.buttonRegisterText}>
+                  Já possui conta? Acesse
+                </Text>
+              </TouchableOpacity>
+
+            </Animatable.View>
+
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
