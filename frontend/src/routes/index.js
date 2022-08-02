@@ -15,11 +15,6 @@ const Routes = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name="CreateQueixa"
-                component={CreateQueixa}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
                 name="Welcome"
                 component={Welcome}
                 options={{ headerShown: false }}
@@ -54,7 +49,11 @@ const Routes = () => {
                 component={CheckForgotPassword}
                 options={{ headerShown: false }}
             />
-            
+            <Stack.Screen
+                name="CreateQueixa"
+                component={CreateQueixa}
+                options={{ headerShown: false }}
+            />
 
         </Stack.Navigator>
     )
