@@ -1,3 +1,3 @@
-const apiUrl = `http://true-knives-find-179-181-50-173.loca.lt`;
+const apiUrl = `http://quiet-moons-stare-191-179-109-25.loca.lt`;
 
 export { apiUrl };
