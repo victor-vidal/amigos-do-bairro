@@ -6,6 +6,7 @@ import {
   TextInput,
   Keyboard,
   TouchableOpacity,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,

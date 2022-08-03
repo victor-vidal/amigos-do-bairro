@@ -25,27 +25,6 @@ import Axios from "axios";
 import SelectDropdown from 'react-native-select-dropdown'
 const countries = ["Egypt", "Canada", "Australia", "Ireland"]
 
-//DATA FROM API
-// const [isLoading, setLoading] = useState(true);
-// const [apiData, setData] = useState([]);
-
-// const getData = async () => {
-//   try {
-//     const response = await fetch(`${apiUrl}/categories`);
-//     const json = await response.json();
-//     setData(json);
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     setLoading(false);
-//   }
-// }
-
-// useEffect(() => {
-//   getData();
-// }, []);
-
-
 const CreateQueixa = () => {
   const [queixa, queixaInput] = useState("");
 
@@ -114,6 +93,17 @@ const CreateQueixa = () => {
 
     await Axios.post("${apiUrl}/files", data);
   }
+  //DATA FROM API
+  const [apiData, setData] = useState([]);
+  const [loading, setloading] = useState(true);
+
+  useEffect(() => {
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((json) => setData(json))
+      .catch((error) => console.error(error))
+      .finally(() => setloading(false))
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -166,11 +156,21 @@ const CreateQueixa = () => {
             return item
           }}
         />
-        
+        {/* <View style={styles.container}>
+          {
+            loading ? <Text>Loading ...</Text> :
+            apiData.map((post) => (
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{post.id}</Text>
+                <Text style={{ fontSize: 15, color: 'blue' }} >{post.name}</Text>
+              </View>
+            ))
+          }
+        </View> */}
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('MainPage')}
-        //onPress={() => handleSubmit()}
         >
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>
