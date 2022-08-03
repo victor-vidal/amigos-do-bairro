@@ -22,16 +22,6 @@ const Welcome = () => {
         resizeMode="cover"
         style={styles.image}>
         
-        <View style={styles.containerLogo}>
-        <Animatable.Image
-          animation="fadeInUp"
-          delay={900}
-          source={require('../../assets/logo.png')}
-          style={{ width: '100%' }}
-          resizeMode="contain"
-        />
-        </View>
-        
         <View style={{
           flex:1,
           paddingHorizontal: '8%'
@@ -41,6 +31,14 @@ const Welcome = () => {
             animation="fadeInUp"
             style={styles.containerForm }
           >
+            <Animatable.Image
+              animation={"fadeInUp"}
+              delay={900}
+              source={require('../../assets/logo.png')}
+              style={styles.logo}
+              resizeMode="cover"
+            />
+            
             <Text style={styles.title}>Amigos do Bairro</Text>
             <Text style={styles.text}>O jeito mais fácil de você ajudar seu bairro!</Text>
 
@@ -49,8 +47,7 @@ const Welcome = () => {
               padding: '10%',
               position: 'relative',
               alignSelf: 'center',
-              alignItems: 'center',
-              marginTop: 25
+              alignItems: 'center'
             }}>
               
               <TouchableOpacity
@@ -69,9 +66,7 @@ const Welcome = () => {
             </View>
           </Animatable.View>
         </View>
-
       </ImageBackground>
-
     </View>
   );
 }
