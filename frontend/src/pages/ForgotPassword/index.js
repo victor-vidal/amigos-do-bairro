@@ -4,11 +4,13 @@ import {
   Text,
   Alert,
   TextInput,
+  Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
-  SafeAreaView
+  SafeAreaView,
+  ImageBackground
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -51,43 +53,60 @@ const ForgotPassword = () => {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>  
           <View style={styles.container}>
-            <Animatable.View
-              animation={"fadeInLeft"}
-              delay={500}
-              style={styles.containerHeader}
-            >
-              <Text style={styles.message}>
-                Digite o seu email
-              </Text>
-            </Animatable.View>
+              <ImageBackground
+                source={require('../../assets/fundo4.png')}
+                resizeMode="cover"
+                style={styles.image}>
 
-            <Animatable.View
-              animation={"fadeInUp"}
-              delay={500}
-              style={styles.containerForm}
-            >
-              <Text style={styles.title}>Email</Text>
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                placeholder='Digite um email..'
-                style={styles.input}
-                keyboardType="email-address"
-                onChangeText={emailInput => setEmail(emailInput)}
-              />
+              </ImageBackground>
 
-              <TouchableOpacity
-                style={styles.button}
-                // onPress={() => navigation.navigate('CheckForgotPassword')}
-                onPress={() => handleSubmit()}
+              <Animatable.View
+                animation={"fadeInUp"}
+                delay={500}
+                style={styles.containerForm}
               >
-                <Text style={styles.buttonText}>Continue</Text>
-              </TouchableOpacity>
+                <Animatable.Image
+                  delay={900}
+                  source={require('../../assets/logo2.png')}
+                  style={styles.logo}
+                  resizeMode="cover"
+                />
 
-            </Animatable.View>
+                <Text style={styles.message}>
+                  Recuperar Acesso
+                </Text>
+                              
+                <Text style={styles.title}>Email</Text>
+                <TextInput
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  placeholder='Digite o email de recuperação'
+                  style={styles.input}
+                  keyboardType="email-address"
+                  onChangeText={emailInput => setEmail(emailInput)}
+                />
 
+                <TouchableOpacity
+                  style={styles.button}
+                  // onPress={() => navigation.navigate('CheckForgotPassword')}
+                  onPress={() => handleSubmit()}
+                >
+                  <Text style={styles.buttonText}>Enviar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={styles.buttonRegister}
+                  onPress={() => navigation.navigate('Welcome')}
+                >
+                  <Text style={styles.buttonRegisterText}>
+                    VOLTAR
+                  </Text>
+                </TouchableOpacity>
+
+              </Animatable.View>
+            
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

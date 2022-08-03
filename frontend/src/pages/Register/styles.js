@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     buttonRegisterText: {
-        color: '#A1A1A1',
+        color: '#1F1F3D'
     }
 });
 
