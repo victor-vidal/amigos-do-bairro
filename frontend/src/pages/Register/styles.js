@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
-        marginTop: '80%',
+        marginTop: '65%',
         paddingStart: '5%',
         paddingEnd: '5%'
     },
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     logo:{
-        width: '24%',
+        width: '22%',
         height:'19%',
         alignSelf: 'center',
-        margin: '1%'
+        margin: '5%'
     },
     button: {
         backgroundColor: '#F47E51',

@@ -53,6 +53,7 @@ const SignIn = () => {
   }
 
   return (
+           
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -67,15 +68,17 @@ const SignIn = () => {
               delay={500}
               style={styles.containerForm}
             >
-              <Animatable.View
-              animation={"fadeInLeft"}
-              delay={500}
-              style={styles.containerHeader}
-            >
+             
+              <Animatable.Image
+                delay={900}
+                source={require('../../assets/logo.png')}
+                style={styles.logo}
+                resizeMode="cover"
+              />
+          
               <Text style={styles.message}>
                 Login
               </Text>
-            </Animatable.View>
 
               <Text style={styles.title}>Email</Text>
               <TextInput

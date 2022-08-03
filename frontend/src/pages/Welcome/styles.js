@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     logo:{
-        width: '45%',
-        height:'40%',
+        width: '40%',
+        height:'35%',
         alignSelf: 'center',
         marginTop: '2%'
     },
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
-        marginTop: 430,
+        marginTop: 420,
         paddingTop: '1%',
         paddingStart: '5%',
         paddingEnd: '5%'
