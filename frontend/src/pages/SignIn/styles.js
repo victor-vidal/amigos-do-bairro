@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     logo:{
-        width: '22%',
-        height:'19%',
+        width: '16%',
+        height:'14%',
         alignSelf: 'center',
-        margin: '5%'
+        marginTop: '2%'
     },
     button: {
         backgroundColor: '#F47E51',

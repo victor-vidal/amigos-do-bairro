@@ -92,11 +92,19 @@ const Register = () => {
                   onChangeText={passwordInput => setPassword(passwordInput)}
                 />
 
+                <Text style={styles.title}>Confirma Senha</Text>
+                <TextInput
+                  secureTextEntry={true}
+                  placeholder='Confirmar sua senha'
+                  style={styles.input}
+                  onChangeText={passwordInput => setPassword(passwordInput)}
+                />
+
                 <TouchableOpacity
                   style={styles.button}
                   onPress={() => handleSubmit()}
                 >
-                  <Text style={styles.buttonText}>Registrar</Text>
+                  <Text style={styles.buttonText}>Confirmar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
