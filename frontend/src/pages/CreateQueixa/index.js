@@ -58,7 +58,31 @@ const CreateQueixa = () => {
   //UPLOAD IMAGE
   const [avatar, setAvatar] = useState();
 
-  async function imagePickerCall() {
+  async function imagePickerCallC() {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+
+      if (status !== "granted") {
+        alert("Nós precisamos dessa permissão.");
+        return;
+      }
+    }
+
+    const data = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All
+    });
+
+    if (data.cancelled) {
+      return;
+    }
+
+    if (!data.uri) {
+      return;
+    }
+
+    setAvatar(data);
+  }
+  async function imagePickerCallG() {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
 
@@ -125,9 +149,15 @@ const CreateQueixa = () => {
         <Text style={styles.title}>Foto da queixa</Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={imagePickerCall}
+          onPress={imagePickerCallC}
         >
-          <Text style={styles.buttonText}>Inserir Imagem</Text>
+          <Text style={styles.buttonText}>Tirar Foto</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={imagePickerCallG}
+        >
+          <Text style={styles.buttonText}>Galeria</Text>
         </TouchableOpacity>
 
         <Text style={styles.title}>Descrição da queixa</Text>
