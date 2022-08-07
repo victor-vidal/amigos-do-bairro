@@ -2,8 +2,9 @@ import React from 'react';
 import {
   View,
   Text,
+  SafeAreaView,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
@@ -16,7 +17,7 @@ const Welcome = () => {
   const navigation = useNavigation();
   
   return (
-    <View style={styles.container}  >
+    <SafeAreaView style={styles.container}  >
       <ImageBackground 
         source={require('../../assets/fundo1.png')}
         resizeMode="cover"
@@ -67,7 +68,7 @@ const Welcome = () => {
           </Animatable.View>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 

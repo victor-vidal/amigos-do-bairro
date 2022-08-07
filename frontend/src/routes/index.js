@@ -1,63 +1,32 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useEffect } from "react";
+import * as SplashScreen from 'expo-splash-screen';
 
-import { Welcome } from '../pages/Welcome';
-import { SignIn } from '../pages/SignIn';
-import { Register } from '../pages/Register';
-import { MainPage } from '../pages/MainPage';
-import { ForgotPassword } from '../pages/ForgotPassword';
-import { CheckForgotPassword } from '../pages/CheckForgotPassword';
-import { RedefinePassword } from '../pages/RedefinePassword';
-import { CreateQueixa } from '../pages/CreateQueixa';
+import { useAuth } from "../context/AuthContext";
 
-const Stack = createNativeStackNavigator();
+import { PublicRoutes } from "./PublicRoutes";
+import { PrivateRoutes } from "./PrivateRoutes";
+
 
 const Routes = () => {
-    return (
-        <Stack.Navigator>
-            
-            <Stack.Screen
-                name="Welcome"
-                component={Welcome}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="SignIn"
-                component={SignIn}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="MainPage"
-                component={MainPage}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="ForgotPassword"
-                component={ForgotPassword}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="RedefinePassword"
-                component={RedefinePassword}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="CheckForgotPassword"
-                component={CheckForgotPassword}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="CreateQueixa"
-                component={CreateQueixa}
-                options={{ headerShown: false }}
-            />
+    //#region HOOKS
+    const { token, loading } = useAuth();
+    //#endregion
+    
+    //#region USE EFFECTS
+    useEffect(() => {
+        SplashScreen.preventAutoHideAsync();
+    });
 
-        </Stack.Navigator>
-    )
+    useEffect(() => {
+        const handleLoading = async () => {
+            if (!loading) await SplashScreen.hideAsync();
+        }
+        handleLoading();
+    }, [loading]);
+
+    return (
+        token? <PrivateRoutes /> : <PublicRoutes />
+    );
 }
 
 export { Routes };

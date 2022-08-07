@@ -1,38 +1,75 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from "react";
 import {
   View,
   Text,
   Alert,
   TextInput,
   TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
-import { apiUrl } from '../../utils/apiUrl.js';
-import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
-import { styles } from "./styles.js";
+} from "react-native";
+import * as Animatable from "react-native-animatable";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import SelectDropdown from "react-native-select-dropdown";
 
-//UPLOAD IMAGE
+// UPLOAD IMAGE
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import Axios from "axios";
 
+import { useAuth } from "../../context/AuthContext.js";
+
+import { getComplaintCategories } from "../../services/ComplaintCategoryService.js";
+
+import { apiUrl } from "../../utils/apiUrl.js";
+import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
+
+import { styles } from "./styles.js";
+
+
 //DROPDOWNLIST
-import SelectDropdown from 'react-native-select-dropdown'
-const countries = ["Egypt", "Canada", "Australia", "Ireland"]
 
 const CreateQueixa = () => {
-  const [queixa, queixaInput] = useState("");
-
+  //#region HOOKS
+  const { token } = useAuth();
   const navigation = useNavigation();
+  //#endregion
 
+  //#region STATES/VARIABLES
+  // Complaint category names
+  const [categoryIdList, setCategoryIdList] = useState([]);
+  const [categoryNameList, setCategoryNameList] = useState([]);
+  const [queixa, queixaInput] = useState("");
+  // UPLOAD IMAGE
+  const [avatar, setAvatar] = useState();
+  //#endregion
 
-  //REQUEST
-  const handleSubmit = async () => {
+  //#region MEMOS
+  const complaintCategoryMemo = useMemo(async () => {
+    const data = await getComplaintCategories(token);
+
+    if (data) return data;
+
+    Alert.alert("Falha na conexão", "Erro ao recolher categorias de queixas.");
+  }, [token]);
+  //#endregion
+
+  //#region USE EFFECTS
+  useEffect(() => {
+    const loadData = async () => {
+      const memoData = await complaintCategoryMemo;
+      setCategoryIdList(
+        memoData.map(complaintCategory => complaintCategory.id)
+      );
+      setCategoryNameList(
+        memoData.map(complaintCategory => complaintCategory.name)
+      );
+    }
+    loadData();
+  }, [])
+  //#endregion
+
+  //#region FUNCTIONS
+  const handleComplaintSubmission = async () => {
     try {
       const response = await fetchWithTimeout(`${apiUrl}/auth/create_recovery_number`, {
         method: "POST",
@@ -54,9 +91,6 @@ const CreateQueixa = () => {
       console.log(error);
     }
   }
-
-  //UPLOAD IMAGE
-  const [avatar, setAvatar] = useState();
 
   async function imagePickerCallC() {
     if (Constants.platform.ios) {
@@ -82,6 +116,7 @@ const CreateQueixa = () => {
 
     setAvatar(data);
   }
+
   async function imagePickerCallG() {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -117,17 +152,7 @@ const CreateQueixa = () => {
 
     await Axios.post("${apiUrl}/files", data);
   }
-  //DATA FROM API
-  const [apiData, setData] = useState([]);
-  const [loading, setloading] = useState(true);
-
-  useEffect(() => {
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setloading(false))
-  }, [])
+  //#endregion
 
   return (
     <View style={styles.container}>
@@ -164,14 +189,14 @@ const CreateQueixa = () => {
         <TextInput
           autoCapitalize="none"
           autoCorrect={false}
-          placeholder='Descreva sua queixa..'
+          placeholder="Descreva sua queixa.."
           style={styles.input}
           onChangeText={queixaInput => setEmail(queixaInput)}
         />
 
         <Text style={styles.title}>Tipo de queixa</Text>
         <SelectDropdown
-          data={countries}
+          data={categoryNameList}
           onSelect={(selectedItem, index) => {
             console.log(selectedItem, index)
           }}
@@ -190,9 +215,9 @@ const CreateQueixa = () => {
           {
             loading ? <Text>Loading ...</Text> :
             apiData.map((post) => (
-              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{post.id}</Text>
-                <Text style={{ fontSize: 15, color: 'blue' }} >{post.name}</Text>
+              <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                <Text style={{ fontSize: 30, fontWeight: "bold" }}>{post.id}</Text>
+                <Text style={{ fontSize: 15, color: "blue" }} >{post.name}</Text>
               </View>
             ))
           }
@@ -200,7 +225,7 @@ const CreateQueixa = () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('MainPage')}
+          onPress={() => navigation.navigate("MainPage")}
         >
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>

@@ -2,12 +2,13 @@ from . import *
 
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 
-from api.schemas import auth
+from api.schemas import auth, users
 from api.authentication import AuthProvider
 from api.exceptions import incorrect_name_or_password_exception
 from api.repositories.users import UsersRepository
+from api.dependencies.access import user_is_active
 from api.repositories.auth import RecoveryNumbersRepository
 
 from api.utils import send_email, generate_recovery_number
@@ -19,6 +20,11 @@ router = APIRouter(
     prefix="/auth",
     tags=["auth"]
 )
+
+
+@router.get("/check")
+def auth_check(current_user: users.User = Depends(user_is_active)):
+    return Response(status_code=200)
 
 
 @router.post("/token", response_model=auth.Token)
