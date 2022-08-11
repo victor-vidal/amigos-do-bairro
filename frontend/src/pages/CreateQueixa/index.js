@@ -38,9 +38,11 @@ const CreateQueixa = () => {
   // Complaint category names
   const [categoryIdList, setCategoryIdList] = useState([]);
   const [categoryNameList, setCategoryNameList] = useState([]);
-  const [queixa, queixaInput] = useState("");
+  const [description, setDescription] = useState("");
   // UPLOAD IMAGE
-  const [avatar, setAvatar] = useState();
+  const [picture, setPicture] = useState();
+
+  const [memoData, setMemoData] = useState();
   //#endregion
 
   //#region MEMOS
@@ -63,6 +65,7 @@ const CreateQueixa = () => {
       setCategoryNameList(
         memoData.map(complaintCategory => complaintCategory.name)
       );
+      setMemoData(memoData);
     }
     loadData();
   }, [])
@@ -71,13 +74,20 @@ const CreateQueixa = () => {
   //#region FUNCTIONS
   const handleComplaintSubmission = async () => {
     try {
-      const response = await fetchWithTimeout(`${apiUrl}/auth/create_recovery_number`, {
+      const response = await fetchWithTimeout(`${apiUrl}/complaints/`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          'Accept': 'application/json',
+          "Content-Type": "application/json",
+          'Authorization': `Bearer ${token}`
         },
-        body: SON.stringify({
-          "email": queixa,
+        body: JSON.stringify({
+          "owner_id": "74427699-440f-49a6-aa04-c9ca28c44d97",
+          "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
+          "title": "Falta de rampa de acesso",
+          "latitude": 15.2,
+          "longitude": 20.0,
+          "image": picture
         })
       });
 
@@ -92,6 +102,14 @@ const CreateQueixa = () => {
     }
   }
 
+
+            
+          // "owner_id": token,
+          // "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
+          // "title": description,
+          // "latitude": 15.2,
+          // "longitude": 20.0,
+          // "image": picture,
   async function imagePickerCallC() {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -114,7 +132,7 @@ const CreateQueixa = () => {
       return;
     }
 
-    setAvatar(data);
+    setPicture(data);
   }
 
   async function imagePickerCallG() {
@@ -139,15 +157,15 @@ const CreateQueixa = () => {
       return;
     }
 
-    setAvatar(data);
+    setPicture(data);
   }
 
   async function uploadImage() {
     const data = new FormData();
 
-    data.append("avatar", {
-      uri: avatar.uri,
-      type: avatar.type
+    data.append("picture", {
+      uri: picture.uri,
+      type: picture.type
     });
 
     await Axios.post("${apiUrl}/files", data);
@@ -191,7 +209,7 @@ const CreateQueixa = () => {
           autoCorrect={false}
           placeholder="Descreva sua queixa.."
           style={styles.input}
-          onChangeText={queixaInput => setEmail(queixaInput)}
+          onChangeText={queixaInput => setDescription(queixaInput)}
         />
 
         <Text style={styles.title}>Tipo de queixa</Text>
@@ -211,21 +229,11 @@ const CreateQueixa = () => {
             return item
           }}
         />
-        {/* <View style={styles.container}>
-          {
-            loading ? <Text>Loading ...</Text> :
-            apiData.map((post) => (
-              <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-                <Text style={{ fontSize: 30, fontWeight: "bold" }}>{post.id}</Text>
-                <Text style={{ fontSize: 15, color: "blue" }} >{post.name}</Text>
-              </View>
-            ))
-          }
-        </View> */}
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("MainPage")}
+          //onPress={() => navigation.navigate("MainPage")}
+          onPress={() => handleComplaintSubmission()}
         >
           <Text style={styles.buttonText}>Continue</Text>
         </TouchableOpacity>

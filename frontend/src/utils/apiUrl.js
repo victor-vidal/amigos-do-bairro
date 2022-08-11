@@ -1,3 +1,3 @@
-const apiUrl = `https://dull-cooks-add-186-214-134-55.loca.lt`;
+const apiUrl = `https://shiny-shoes-drive-191-179-109-25.loca.lt`;
 
 export { apiUrl };

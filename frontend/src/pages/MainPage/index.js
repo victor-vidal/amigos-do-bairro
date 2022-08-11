@@ -10,7 +10,7 @@ import { styles } from "./styles.js";
 
 const MainPage = () => {
   //#region 
-  const { token } = useAuth();
+  const { token, signOut } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -28,6 +28,13 @@ const MainPage = () => {
           onPress={() => navigation.navigate('CreateQueixa')}
         >
           <Text style={styles.buttonText}>Criar Queixa</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => signOut()}
+        >
+          <Text style={styles.buttonText}>Sair</Text>
         </TouchableOpacity>
 
       </Animatable.View>
