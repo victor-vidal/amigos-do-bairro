@@ -11,6 +11,11 @@ router = APIRouter(
 )
 
 
+@router.get("/me", response_model=users.User)
+def get_me(current_user: users.User = Depends(user_is_active)):
+    return current_user
+
+
 @router.post("/", response_model=users.User)
 def post_create(
     user: users.UserCreate, 

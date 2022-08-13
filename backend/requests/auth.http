@@ -2,11 +2,6 @@
 @TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NTg3ODEwOTR9.fGjSq9GXGIFisR63kNnxoId3idYQ0XFo4NQMU2OUnQs
 
 
-### GET Auth check
-GET {{HOST}}/check
-Authorization: Bearer {{TOKEN}}
-
-
 ### POST Get Access Token
 POST {{HOST}}/token
 Content-Type: application/json

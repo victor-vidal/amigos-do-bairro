@@ -1,5 +1,7 @@
 from . import *
 
+from api.schemas.users import User
+
 
 class AuthData(BaseModel):
     username: str
@@ -9,6 +11,7 @@ class AuthData(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+    user: User
     
 
 class TokenData(BaseModel):

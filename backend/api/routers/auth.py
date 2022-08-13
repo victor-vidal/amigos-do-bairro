@@ -22,11 +22,6 @@ router = APIRouter(
 )
 
 
-@router.get("/check")
-def auth_check(current_user: users.User = Depends(user_is_active)):
-    return Response(status_code=200)
-
-
 @router.post("/token", response_model=auth.Token)
 def get_access_token(
     form_data: auth.AuthData, 
@@ -48,7 +43,7 @@ def get_access_token(
         data={ "sub": user.email }, expires_delta=access_token_expires
     )
     
-    return { "access_token": access_token, "token_type": "bearer" }
+    return { "access_token": access_token, "token_type": "bearer", "user": user }
 
 
 @router.post(

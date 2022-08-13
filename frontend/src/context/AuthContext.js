@@ -2,13 +2,15 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import * as authService from "../services/AuthService";
+import * as userService from "../services/UserService";
 
 
 const AuthContext = createContext({
     token: null,
     loading: true,
     signIn: () => {},
-    signOut: () => {}
+    signOut: () => {},
+    user: { id: "", email: "" }
 });
 
 
@@ -16,6 +18,7 @@ const AuthContext = createContext({
 const AuthProvider = (props) => {
     //#region STATES/VARIABLES
     const [token, setToken] = useState("");
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     //#endregion
 
@@ -23,9 +26,11 @@ const AuthProvider = (props) => {
     useEffect(() => {
         const loadStorageData = async () => {
             const storagedToken = await AsyncStorage.getItem("@RNAuth:token");
+            const currentUser = await userService.getCurrentUser(storagedToken);
 
-            if (storagedToken && (await authService.checkAuth(storagedToken))) {
+            if (storagedToken && currentUser) {
                 setToken(storagedToken);
+                setUser(currentUser);
             } else {
                 setToken(null);
             }
@@ -43,6 +48,7 @@ const AuthProvider = (props) => {
 
         if (response) {
             setToken(response.access_token);
+            setUser(response.user);
             await AsyncStorage.setItem("@RNAuth:token", response.access_token);
 
             return true;
@@ -58,7 +64,7 @@ const AuthProvider = (props) => {
 
     return (
         <AuthContext.Provider
-            value={{ token, loading, signIn, signOut }}
+            value={{ token, loading, signIn, signOut, user }}
         >
             {props.children}
         </AuthContext.Provider>

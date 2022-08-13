@@ -17,8 +17,6 @@ import * as ImagePicker from "expo-image-picker";
 
 import * as Location from "expo-location";
 
-import Axios from "axios";
-
 import { useAuth } from "../../context/AuthContext.js";
 
 import { getComplaintCategories } from "../../services/ComplaintCategoryService.js";
@@ -33,7 +31,7 @@ import { styles } from "./styles.js";
 
 const CreateQueixa = () => {
   //#region HOOKS
-  const { token } = useAuth();
+  const { token, user } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -42,14 +40,13 @@ const CreateQueixa = () => {
   const [currentLatitude, setCurrentLatitude] = useState(null);
   const [currentLongitude, setCurrentLongitude] = useState(null);
   // Complaint category ids
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [categoryIdList, setCategoryIdList] = useState([]);
   // Complaint category names
   const [categoryNameList, setCategoryNameList] = useState([]);
   const [description, setDescription] = useState("");
   // UPLOAD IMAGE
-  const [picture, setPicture] = useState();
-
-  const [memoData, setMemoData] = useState();
+  const [picture, setPicture] = useState("");
   //#endregion
 
   //#region MEMOS
@@ -72,7 +69,6 @@ const CreateQueixa = () => {
       setCategoryNameList(
         memoData.map(complaintCategory => complaintCategory.name)
       );
-      setMemoData(memoData);
     }
     loadData();
   }, [])
@@ -111,14 +107,13 @@ const CreateQueixa = () => {
       const response = await fetchWithTimeout(`${apiUrl}/complaints/`, {
         method: "POST",
         headers: {
-          "Accept": "application/json",
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-          "owner_id": "74427699-440f-49a6-aa04-c9ca28c44d97",
-          "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
-          "title": "Falta de rampa de acesso",
+          "owner_id": user.id,
+          "category_id": selectedCategoryId,
+          "title": description,
           "latitude": currentLatitude,
           "longitude": currentLongitude,
           "image": picture
@@ -126,7 +121,6 @@ const CreateQueixa = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
         navigation.navigate("MainPage");
       } else {
         Alert.alert("Falha no login", "Credenciais inválidas");
@@ -147,7 +141,8 @@ const CreateQueixa = () => {
     }
 
     const data = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true
     });
 
     if (data.cancelled) {
@@ -158,7 +153,7 @@ const CreateQueixa = () => {
       return;
     }
 
-    setPicture(data);
+    setPicture(data.base64);
   }
 
   async function imagePickerCallG() {
@@ -172,7 +167,8 @@ const CreateQueixa = () => {
     }
 
     const data = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      base64: true
     });
 
     if (data.cancelled) {
@@ -183,18 +179,7 @@ const CreateQueixa = () => {
       return;
     }
 
-    setPicture(data);
-  }
-
-  async function uploadImage() {
-    const data = new FormData();
-
-    data.append("picture", {
-      uri: picture.uri,
-      type: picture.type
-    });
-
-    await Axios.post("${apiUrl}/files", data);
+    setPicture(data.base64);
   }
   //#endregion
 
@@ -242,7 +227,7 @@ const CreateQueixa = () => {
         <SelectDropdown
           data={categoryNameList}
           onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index)
+            setSelectedCategoryId(categoryIdList[index]);
           }}
           buttonTextAfterSelection={(selectedItem, index) => {
             // text represented after item is selected
@@ -258,10 +243,10 @@ const CreateQueixa = () => {
 
         <TouchableOpacity
           style={styles.button}
-          //onPress={() => navigation.navigate("MainPage")}
+          // disabled={!description || !picture || !selectedCategoryId}
           onPress={() => handleComplaintSubmission()}
         >
-          <Text style={styles.buttonText}>Continue</Text>
+          <Text style={styles.buttonText}>Criar</Text>
         </TouchableOpacity>
       </Animatable.View>
     </View>

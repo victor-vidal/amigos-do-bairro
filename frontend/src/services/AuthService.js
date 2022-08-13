@@ -18,16 +18,4 @@ const signIn = async (username, password) => {
     return null;
 };
 
-
-const checkAuth = async (token) => {
-    const response = await fetchWithTimeout(`${apiUrl}/auth/check`, {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-
-    if (response.ok) return true;
-    return false;
-};
-
-
-export { signIn, checkAuth };
+export { signIn };
