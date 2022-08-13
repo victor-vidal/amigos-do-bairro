@@ -7,13 +7,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import SelectDropdown from "react-native-select-dropdown";
 
 // UPLOAD IMAGE
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
+
+import * as Location from "expo-location";
+
 import Axios from "axios";
 
 import { useAuth } from "../../context/AuthContext.js";
@@ -35,8 +38,12 @@ const CreateQueixa = () => {
   //#endregion
 
   //#region STATES/VARIABLES
-  // Complaint category names
+  // Geolocation info
+  const [currentLatitude, setCurrentLatitude] = useState(null);
+  const [currentLongitude, setCurrentLongitude] = useState(null);
+  // Complaint category ids
   const [categoryIdList, setCategoryIdList] = useState([]);
+  // Complaint category names
   const [categoryNameList, setCategoryNameList] = useState([]);
   const [description, setDescription] = useState("");
   // UPLOAD IMAGE
@@ -72,21 +79,48 @@ const CreateQueixa = () => {
   //#endregion
 
   //#region FUNCTIONS
+  /**
+   * Get the current geolocation
+   * @returns {boolean} True if geolocation was successfully acquired or false 
+   * otherwise
+   */ 
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      alert("Permissão de Localização negada, não é possível prosseguir");
+      return false;
+    }
+
+    let location = await Location.getCurrentPositionAsync({ accuracy: 6 });
+    setCurrentLatitude(location.coords.latitude);
+    setCurrentLongitude(location.coords.longitude);
+
+    return true;
+  };
+
   const handleComplaintSubmission = async () => {
     try {
+
+      // Getting complaint location
+      if (!(await getLocation())) return;
+      if (!currentLatitude || !currentLongitude) {
+        alert("Não foi possível localizar, por favor tente novamente.");
+        return;
+      }
+
       const response = await fetchWithTimeout(`${apiUrl}/complaints/`, {
         method: "POST",
         headers: {
-          'Accept': 'application/json',
+          "Accept": "application/json",
           "Content-Type": "application/json",
-          'Authorization': `Bearer ${token}`
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
           "owner_id": "74427699-440f-49a6-aa04-c9ca28c44d97",
           "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
           "title": "Falta de rampa de acesso",
-          "latitude": 15.2,
-          "longitude": 20.0,
+          "latitude": currentLatitude,
+          "longitude": currentLongitude,
           "image": picture
         })
       });
@@ -102,14 +136,6 @@ const CreateQueixa = () => {
     }
   }
 
-
-            
-          // "owner_id": token,
-          // "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
-          // "title": description,
-          // "latitude": 15.2,
-          // "longitude": 20.0,
-          // "image": picture,
   async function imagePickerCallC() {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
