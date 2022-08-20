@@ -24,6 +24,13 @@ class Complaint(Base):
     longitude = Column(Float)
     image = Column(String)
     
+    # address
+    country = Column(String)
+    state = Column(String)
+    city = Column(String)
+    suburb = Column(String)
+    road = Column(String)
+    
     owner = relationship("User", backref="complaints")
     category = relationship("ComplaintCategory", backref="complaints")
     

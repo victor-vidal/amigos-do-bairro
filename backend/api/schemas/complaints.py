@@ -23,6 +23,13 @@ class ComplaintCreate(BaseModel):
     longitude: float
     image: str
     
+    # address
+    country: Optional[str]
+    state: Optional[str]
+    city: Optional[str]
+    suburb: Optional[str]
+    road: Optional[str]
+    
     @validator("owner_id")
     def user_exists(cls, v):
         from api.dependencies.database import get_db
@@ -63,6 +70,13 @@ class Complaint(BaseModel):
     latitude: float
     longitude: float
     image: str
+    
+    # address
+    country: str
+    state: str
+    city: str
+    suburb: str
+    road: str
     
     class Config:
         orm_mode = True

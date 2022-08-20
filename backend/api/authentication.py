@@ -39,7 +39,7 @@ class AuthProvider:
             expire = datetime.utcnow() + expires_delta
         else:
             expire = datetime.utcnow() + timedelta(
-                minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+                hours=settings.ACCESS_TOKEN_EXPIRE_HOURS
             )
             
         to_encode.update({"exp": expire})
