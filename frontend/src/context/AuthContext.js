@@ -10,7 +10,7 @@ const AuthContext = createContext({
     loading: true,
     signIn: () => {},
     signOut: () => {},
-    user: { id: "", email: "" }
+    userId: ""
 });
 
 
@@ -18,7 +18,7 @@ const AuthContext = createContext({
 const AuthProvider = (props) => {
     //#region STATES/VARIABLES
     const [token, setToken] = useState("");
-    const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState("");
     const [loading, setLoading] = useState(true);
     //#endregion
 
@@ -26,11 +26,11 @@ const AuthProvider = (props) => {
     useEffect(() => {
         const loadStorageData = async () => {
             const storagedToken = await AsyncStorage.getItem("@RNAuth:token");
-            const currentUser = await userService.getCurrentUser(storagedToken);
+            const storagedUserId = await AsyncStorage.getItem("@RNAuth:userId");
 
-            if (storagedToken && currentUser) {
+            if (storagedToken && storagedUserId) {
                 setToken(storagedToken);
-                setUser(currentUser);
+                setUserId(storagedUserId);
             } else {
                 setToken(null);
             }
@@ -48,8 +48,9 @@ const AuthProvider = (props) => {
 
         if (response) {
             setToken(response.access_token);
-            setUser(response.user);
+            setUserId(response.user_id);
             await AsyncStorage.setItem("@RNAuth:token", response.access_token);
+            await AsyncStorage.setItem("@RNAuth:userId", response.user_id);
 
             return true;
         }
@@ -64,7 +65,7 @@ const AuthProvider = (props) => {
 
     return (
         <AuthContext.Provider
-            value={{ token, loading, signIn, signOut, user }}
+            value={{ token, loading, signIn, signOut, userId }}
         >
             {props.children}
         </AuthContext.Provider>

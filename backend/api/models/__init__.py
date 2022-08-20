@@ -10,6 +10,7 @@ from sqlalchemy import (
     String, 
     Integer,
     Boolean, 
+    Date,
     DateTime, 
     ForeignKey,
     LargeBinary,

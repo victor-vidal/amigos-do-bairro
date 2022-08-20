@@ -31,7 +31,7 @@ import { styles } from "./styles.js";
 
 const CreateQueixa = () => {
   //#region HOOKS
-  const { token, user } = useAuth();
+  const { token, userId } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -111,7 +111,7 @@ const CreateQueixa = () => {
           "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify({
-          "owner_id": user.id,
+          "owner_id": userId,
           "category_id": selectedCategoryId,
           "title": description,
           "latitude": currentLatitude,

@@ -1,6 +1,5 @@
 from . import *
 
-
 class User(Base):
     __tablename__ = "users"
     
