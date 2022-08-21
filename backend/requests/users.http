@@ -1,5 +1,5 @@
 @HOST=http://127.0.0.1:8000/users
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NjEwMTYxMzR9.lOl-yMZkBV2LTvE-iImj84v0k8oWvDRorREKZkB3Yko
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NjEyMDY1MjF9.Bh31JUNxF2U8F5lopSE75aPy6jFHkKSggDd1Wlt4PMg
 
 ### Get me
 GET {{HOST}}/me/
@@ -19,13 +19,13 @@ POST {{HOST}}/
 Content-Type: application/json
 
 {
-    "email": "victorvidal584@gmail.com",
+    "email": "barpo@gmail.com",
     "password": "123"
 }
 
 
 ### Delete User
-DELETE {{HOST}}/abccd457-2777-4d08-a941-231810ab1f7c/
+DELETE {{HOST}}/1a861673-78d2-4a73-bf33-ad305ddf5f84/
 Authorization: Bearer {{TOKEN}}
 
 

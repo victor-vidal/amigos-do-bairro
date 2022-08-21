@@ -1,5 +1,5 @@
 @HOST=http://127.0.0.1:8000/complaints
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NjExMjQ3Mjd9.fzP-FFIgF1Nd5M-zYBhJpeVa9i9KA44BBBLG6hSv32Q
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYXJwb0BnbWFpbC5jb20iLCJleHAiOjE2NjEyMTY4MTB9.ujm-q6Q5NXChzouzPY0bljruJ43yMWXsTvJuGmiW8nQ
 
 ### GET Complaint Categories
 GET {{HOST}}/categories
@@ -17,8 +17,8 @@ Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
-    "owner_id": "471f2c31-c04e-4589-a723-08bacaaa240c",
-    "category_id": "90b7db9b-e676-4afd-8e17-f7638f611370",
+    "owner_id": "9d724d65-cb5e-48ab-9e4d-b22b6aaa0957",
+    "category_id": "400fa6db-0a5c-44ee-8e56-a50ebd083c1f",
     "title": "Falta de rampa de acesso",
     "latitude": -8.2100052,
     "longitude": -34.9261743,
@@ -28,4 +28,24 @@ Content-Type: application/json
 
 ### GET Complaint
 GET {{HOST}}/7909372e-8533-486b-b836-403154ded70b/
+Authorization: Bearer {{TOKEN}}
+
+
+### Like complaint
+POST {{HOST}}/cd75a020-61f3-426f-893b-355aaba526d1/like
+Authorization: Bearer {{TOKEN}}
+
+
+### Remove Like Complaint
+DELETE {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/like
+Authorization: Bearer {{TOKEN}}
+
+
+### Follow complaint
+POST {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/follow
+Authorization: Bearer {{TOKEN}}
+
+
+### Remove Follow Complaint
+DELETE {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/follow
 Authorization: Bearer {{TOKEN}}

@@ -62,21 +62,95 @@ class ComplaintCreate(BaseModel):
     
     
 class Complaint(BaseModel):
-    id: UUID
-    created_at: datetime.datetime
-    owner: User
-    category: ComplaintCategory
-    title: str
-    latitude: float
-    longitude: float
-    image: str
+    # complaint info
+    id: UUID = Field(title="Complaint's identified")
+    created_at: datetime.datetime = Field(title="Complaint's creation date and time")
+    owner: User = Field(title="Complaint's creator")
+    category: ComplaintCategory = Field(title="Complaint's category")
+    title: str = Field(title="Complaint's title")
+    image: str = Field(title="Complaint's image on base64 format")
+    resolved: bool = Field(title="If complaint was resolved") 
     
-    # address
-    country: str
-    state: str
-    city: str
-    suburb: str
-    road: str
+    # complaint location info
+    latitude: float = Field(title="Complaint's latitude")
+    longitude: float = Field(title="Complaint's logintude")
+    country: str = Field(title="Complaint's country")
+    state: str = Field(title="Complaint's state")
+    city: str = Field(title="Complaint's city")
+    suburb: str = Field(title="Complaint's suburb")
+    road: str = Field(title="Complaint's road")
+    
+    # complaint-user info
+    likes: Optional[int] = Field(title="Number of complaint's likes")
+    liked_by_user: Optional[bool] = Field(title="If complaint was liked by current user")
+    followed_by_user: Optional[bool] = Field(title="If complaint was followed by current user")
     
     class Config:
         orm_mode = True
+        
+
+class ComplaintLikeCreate(BaseModel):
+    user_id: UUID
+    complaint_id: UUID
+    
+    @validator("user_id")
+    def user_exists(cls, v):
+        from api.dependencies.database import get_db
+        from api.repositories.users import UsersRepository
+        
+        users_repo = UsersRepository(db=next(get_db()))
+        
+        db_user = users_repo.read_one(v)
+        
+        if not db_user:
+            raise ValueError("User doesn't exist")
+            
+        return v
+        
+    @validator("complaint_id")
+    def complaint_exists(cls, v):
+        from api.dependencies.database import get_db
+        from api.repositories.complaints import ComplaintsRepository
+        
+        users_repo = ComplaintsRepository(db=next(get_db()))
+        
+        db_complaint = users_repo.read_one(v)
+        
+        if not db_complaint:
+            raise ValueError("Complaint doesn't exist")
+            
+        return v
+    
+
+class ComplaintFollowCreate(BaseModel):
+    user_id: UUID
+    complaint_id: UUID
+    
+    @validator("user_id")
+    def user_exists(cls, v):
+        from api.dependencies.database import get_db
+        from api.repositories.users import UsersRepository
+        
+        users_repo = UsersRepository(db=next(get_db()))
+        
+        db_user = users_repo.read_one(v)
+        
+        if not db_user:
+            raise ValueError("User doesn't exist")
+            
+        return v
+        
+    @validator("complaint_id")
+    def complaint_exists(cls, v):
+        from api.dependencies.database import get_db
+        from api.repositories.complaints import ComplaintsRepository
+        
+        users_repo = ComplaintsRepository(db=next(get_db()))
+        
+        db_complaint = users_repo.read_one(v)
+        
+        if not db_complaint:
+            raise ValueError("Complaint doesn't exist")
+            
+        return v
+        
