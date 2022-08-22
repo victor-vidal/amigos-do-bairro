@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { MainPage } from "../pages/MainPage";
 import { CreateQueixa } from "../pages/CreateQueixa";
-
+import { Feed } from "../pages/Feed";
 
 const PrivateStack = createNativeStackNavigator();
 
@@ -14,6 +14,11 @@ const PrivateRoutes = () => {
             <PrivateStack.Screen
                 name="MainPage"
                 component={MainPage}
+                options={{ headerShown: false }}
+            />
+            <PrivateStack.Screen
+                name="Feed"
+                component={Feed}
                 options={{ headerShown: false }}
             />
             <PrivateStack.Screen

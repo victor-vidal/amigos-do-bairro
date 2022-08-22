@@ -31,7 +31,9 @@
     "react-native-select-dropdown": "^2.0.4",
     "react-native-web": "0.17.7",
     "undefined": "expo/ngrok@^4.1.0",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "react-native-gesture-handler": "~2.2.1",
+    "react-native-reanimated": "~2.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

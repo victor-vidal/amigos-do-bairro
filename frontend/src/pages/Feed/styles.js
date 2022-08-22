@@ -56,7 +56,27 @@ const styles = StyleSheet.create({
     buttonRegisterText: {
         color: '#A1A1A1',
     },
-    
+    postView:{
+        width:'100%',
+        alignItems:'center',
+        marginTop:40,
+    },
+    imageView:{
+        display:'flex',
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    coverPhoto: {
+        width: '90%',
+        height: 200,
+        backgroundColor:'rgba(0,0,0,0.06)',
+        marginTop:20,
+        borderRadius:10,
+        resizeMode: 'contain',
+        borderWidth: 1,
+        borderColor: 'red'
+    },
 });
+
 
 export { styles };
