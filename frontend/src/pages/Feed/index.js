@@ -1,11 +1,11 @@
-import React, { useState, useMemo,useEffect } from 'react';
-import { View, Text, FlatList,TouchableOpacity,Alert, Image } from 'react-native';
+import React, { useState, useMemo, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity, Alert, Image, TouchableWithoutFeedback } from 'react-native';
+
 import * as Animatable from 'react-native-animatable';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { apiUrl } from "../../utils/apiUrl.js";
-import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
 import { getComplaintFeed } from "../../services/FeedService.js";
+import { LikeButton } from '../../services/LikeButton.js';
 
 import { useAuth } from '../../context/AuthContext.js';
 
@@ -13,13 +13,14 @@ import { styles } from "./styles.js";
 
 
 const Feed = () => {
-//#region HOOKS
+  //#region HOOKS
   const { token, userId } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
   //#region 
   const [feed, setFeed] = useState([]);
+  const [state_liked, setState] = useState([]);
   //#endregion
 
   const complaintFeedMemo = useMemo(async () => {
@@ -33,30 +34,38 @@ const Feed = () => {
   async function loadPage() {
     const memoData = await complaintFeedMemo;
     setFeed(memoData);
-    
+
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     loadPage();
-  },[]);
+  }, []);
 
   return (
     <View>
-      <FlatList
-        data={feed}
-        keyExtractor={item => String(item.id)}
-        renderItem={({ item }) => (
-          <View style={styles.postView}>
-            <Text>{item.id}</Text>
+      <View>
 
 
+      </View>
+
+      <View>
+        <FlatList
+          data={feed}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <View style={styles.postView}>
+              <Text>{item.id}</Text>
 
 
+              <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+              <View>
+                <LikeButton />
+              </View>
+            </View>
+          )}
+        />
 
-            <Image style={styles.coverPhoto} source={{uri: `data:image/jpeg;base64,${item.image}`}}/>
-          </View>
-        )}
-      />
+      </View>
     </View>
   );
 }
