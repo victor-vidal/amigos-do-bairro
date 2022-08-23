@@ -37,13 +37,19 @@ def get_access_token(
         raise incorrect_name_or_password_exception
     
     access_token_expires = timedelta(
-        minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        hours=settings.ACCESS_TOKEN_EXPIRE_HOURS
     )
     access_token = auth_provider.create_access_token(
         data={ "sub": user.email }, expires_delta=access_token_expires
     )
     
-    return { "access_token": access_token, "token_type": "bearer", "user": user }
+    return { 
+        "access_token": access_token, 
+        "token_type": "bearer", 
+        "user_id": user.id 
+    }
+    
+
 
 
 @router.post(
@@ -101,7 +107,7 @@ def check_recovery_number(
         recovery_numbers_repo.delete(id=db_recovery_number.id)
         
         access_token_expires = timedelta(
-            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+            hours=settings.ACCESS_TOKEN_EXPIRE_HOURS
         )
         access_token = auth_provider.create_access_token(
             data={ "sub": db_user.email }, expires_delta=access_token_expires

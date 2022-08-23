@@ -30,12 +30,10 @@ def post_create(
 
 @router.get("/", response_model=List[users.User])
 def get_users(
-    skip: int = 0, 
-    limit: int = 100, 
     users_repo: UsersRepository = Depends(UsersRepository),
     current_user: users.User = Depends(user_is_active)
 ):
-    return users_repo.read_all(skip=skip, limit=limit)
+    return users_repo.read_all()
 
 
 @router.get("/{user_id}", response_model=users.User)

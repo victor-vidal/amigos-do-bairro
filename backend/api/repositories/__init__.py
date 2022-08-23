@@ -25,8 +25,8 @@ class BaseRepository:
     def read_one(self, id: uuid.UUID) -> Optional[Any]:
         return self.db.query(self.model).filter(self.model.id == id).first()
     
-    def read_all(self, skip: int = 0, limit: int = 100) -> List[Any]:
-        return self.db.query(self.model).offset(skip).limit(limit).all()
+    def read_all(self) -> List[Any]:
+        return self.db.query(self.model).all()
     
     def create(self, schema: schemas.BaseModel):
         db_instance = self.model(

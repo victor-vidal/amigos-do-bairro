@@ -1,5 +1,5 @@
 @HOST=http://127.0.0.1:8000/complaints
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ2aWN0b3J2aWRhbDU4NEBnbWFpbC5jb20iLCJleHAiOjE2NTg3ODEwOTR9.fGjSq9GXGIFisR63kNnxoId3idYQ0XFo4NQMU2OUnQs
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiYXJwb0BnbWFpbC5jb20iLCJleHAiOjE2NjEyMTY4MTB9.ujm-q6Q5NXChzouzPY0bljruJ43yMWXsTvJuGmiW8nQ
 
 ### GET Complaint Categories
 GET {{HOST}}/categories
@@ -7,25 +7,45 @@ Authorization: Bearer {{TOKEN}}
 
 
 ### GET Complaints
-GET {{HOST}}/
+GET {{HOST}}/?state=Pernambuco
 Authorization: Bearer {{TOKEN}}
 
 
-### GET Complaints
+### POST Complaints
 POST {{HOST}}/
 Authorization: Bearer {{TOKEN}}
 Content-Type: application/json
 
 {
-    "owner_id": "74427699-440f-49a6-aa04-c9ca28c44d97",
-    "category_id": "fd2fe99e-2a1f-4680-a2b0-6eca79c21f95",
+    "owner_id": "9d724d65-cb5e-48ab-9e4d-b22b6aaa0957",
+    "category_id": "400fa6db-0a5c-44ee-8e56-a50ebd083c1f",
     "title": "Falta de rampa de acesso",
-    "latitude": 15.2,
-    "longitude": 20.0,
+    "latitude": -8.2100052,
+    "longitude": -34.9261743,
     "image": "data:image/jpeg;base64,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"
 }
 
 
 ### GET Complaint
 GET {{HOST}}/7909372e-8533-486b-b836-403154ded70b/
+Authorization: Bearer {{TOKEN}}
+
+
+### Like complaint
+POST {{HOST}}/cd75a020-61f3-426f-893b-355aaba526d1/like
+Authorization: Bearer {{TOKEN}}
+
+
+### Remove Like Complaint
+DELETE {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/like
+Authorization: Bearer {{TOKEN}}
+
+
+### Follow complaint
+POST {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/follow
+Authorization: Bearer {{TOKEN}}
+
+
+### Remove Follow Complaint
+DELETE {{HOST}}/22800f57-cf0c-4a00-aaf5-178bd3703b1f/follow
 Authorization: Bearer {{TOKEN}}

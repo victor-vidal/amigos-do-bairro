@@ -11,7 +11,7 @@ class AuthData(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-    user: User
+    user_id: UUID
     
 
 class TokenData(BaseModel):
