@@ -7,7 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { getComplaintFeed } from "../../services/FeedService.js";
 import { LikeButton } from '../../services/LikeButton.js';
 import { FollowButton } from '../../services/FollowButton.js';
-import favicon from '../../../assets/favicon.png'
+// import favicon from '../../../assets/favicon.png'
 
 import { useAuth } from '../../context/AuthContext.js';
 
@@ -51,7 +51,7 @@ const Feed = () => {
       </View>
 
       <View>
-        <favicon onPress={navigation.navigate('Feed')}/>
+        {/* <favicon onPress={navigation.navigate('Feed')}/> */}
       </View>
 
       <View>
