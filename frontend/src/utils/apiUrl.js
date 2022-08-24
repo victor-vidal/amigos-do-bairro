@@ -1,2 +1,2 @@
-const apiUrl = `https://wicked-worlds-wash-201-71-61-179.loca.lt`;
+const apiUrl = `https://true-bats-wink-45-176-83-63.loca.lt`;
 export { apiUrl };
