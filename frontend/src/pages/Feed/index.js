@@ -6,6 +6,8 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { getComplaintFeed } from "../../services/FeedService.js";
 import { LikeButton } from '../../services/LikeButton.js';
+import { FollowButton } from '../../services/FollowButton.js';
+// import favicon from '../../../assets/favicon.png'
 
 import { useAuth } from '../../context/AuthContext.js';
 
@@ -49,6 +51,10 @@ const Feed = () => {
       </View>
 
       <View>
+        {/* <favicon onPress={navigation.navigate('Feed')}/> */}
+      </View>
+
+      <View>
         <FlatList
           data={feed}
           keyExtractor={item => String(item.id)}
@@ -60,6 +66,7 @@ const Feed = () => {
               <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
               <View>
                 <LikeButton />
+                <FollowButton />
               </View>
             </View>
           )}
