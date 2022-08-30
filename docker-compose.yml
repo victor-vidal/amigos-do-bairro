@@ -33,6 +33,7 @@ services:
     image: postgres:14.1-alpine
     volumes:
       - postgres-db:/data/postgres
+    command: -p 5433
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "amigos-dev"]
       interval: 5s

@@ -1,3 +1,3 @@
-const apiUrl = `https://hip-beds-dress-179-186-133-152.loca.lt`;
+const apiUrl = `https://tricky-teams-happen-45-176-83-63.loca.lt`;
 
 export { apiUrl };
