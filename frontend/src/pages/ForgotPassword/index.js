@@ -17,8 +17,7 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { apiUrl } from '../../utils/apiUrl.js';
-import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
+import { getUsers } from '../../services/UserService.js';
 
 import { styles } from "./styles.js";
 
@@ -28,26 +27,23 @@ const ForgotPassword = () => {
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetchWithTimeout(`${apiUrl}/auth/create_recovery_number`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "email": email,
-        })
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        navigation.navigate("CheckForgotPassword", { email: email });
-      } else {
-        Alert.alert("Falha no login", "Credenciais inválidas");
+    getUsers().then(response => {
+      if (!response) {
+        alert("Failed to get users");
+        return;
       }
-    } catch (error) {
-      console.log(error);
-    }
+
+      const user = response.find(
+        (user) => user.email == email
+      );
+
+      if (!user) {
+        alert("User doesn't exists");
+        return;
+      }
+
+      navigation.navigate("CheckForgotPassword", { user: user });
+    });
   }
 
   return (

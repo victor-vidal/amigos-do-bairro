@@ -17,8 +17,7 @@ import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles.js";
 
-import { apiUrl } from "../../utils/apiUrl.js";
-import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
+import { createUser } from "../../services/UserService.js";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -27,25 +26,15 @@ const Register = () => {
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
-    try {
-      const response = await fetchWithTimeout(`${apiUrl}/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      });
+    const response = await createUser({
+        email: email,
+        password: password
+    });
 
-      if (response.ok) {
-        navigation.navigate("SignIn");
-      } else {
-        Alert.alert("Falha na criação", "Usuário informado inválido");
-      }
-    } catch (error) {
-      console.log(error);
+    if (response) {
+      navigation.navigate("SignIn");
+    } else {
+      Alert.alert("Falha na criação", "Usuário informado inválido");
     }
   }
 

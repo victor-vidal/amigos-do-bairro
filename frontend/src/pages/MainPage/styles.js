@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         paddingVertical: 8,
         width: '100%',
-        height: '40%',
+        height: '55%',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 14,

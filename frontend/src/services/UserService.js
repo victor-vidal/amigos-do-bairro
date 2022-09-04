@@ -1,15 +1,33 @@
-import { apiUrl } from "../utils/apiUrl";
-import { fetchWithTimeout } from "../utils/fetchWithTimeout";
+import { api } from "./Api";
 
 
-const getCurrentUser = async (token) => {
-    const response = await fetchWithTimeout(`${apiUrl}/users/me`, {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
+const getUsers = async () => {
+    const response = await api.get("/users");
 
-    if (response.ok) return await response.json();
+    if (response.status === 200) return response.data;
     return;
 };
 
-export { getCurrentUser };
+const updateUser = async (id, data) => {
+    const response = await api.patch(`/users/${id}`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if (response.status === 200) return response.data;
+    return;
+};
+
+const createUser = async (data) => {
+    const response = await api.post(`/users`, data, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+
+    if (response.status === 201) return response.data;
+    return;
+}
+
+export { getUsers, updateUser, createUser };

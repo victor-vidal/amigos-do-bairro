@@ -2,12 +2,11 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Alert, Image, TouchableWithoutFeedback } from 'react-native';
 
 import * as Animatable from 'react-native-animatable';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-import { getComplaintFeed } from "../../services/FeedService.js";
+import { getComplaintFeed } from "../../services/ComplaintService";
 import { LikeButton } from '../../services/LikeButton.js';
 import { FollowButton } from '../../services/FollowButton.js';
-// import favicon from '../../../assets/favicon.png'
 
 import { useAuth } from '../../context/AuthContext.js';
 
@@ -16,7 +15,7 @@ import { styles } from "./styles.js";
 
 const Feed = () => {
   //#region HOOKS
-  const { token, userId } = useAuth();
+  const { user } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -26,17 +25,16 @@ const Feed = () => {
   //#endregion
 
   const complaintFeedMemo = useMemo(async () => {
-    const data = await getComplaintFeed(token);
+    const data = await getComplaintFeed();
 
     if (data) return data;
 
     Alert.alert("Falha na conexão", "Erro ao recolher as queixas do feed.");
-  }, [token]);
+  }, [user]);
 
   async function loadPage() {
     const memoData = await complaintFeedMemo;
     setFeed(memoData);
-
   }
 
   useEffect(() => {
@@ -51,7 +49,6 @@ const Feed = () => {
       </View>
 
       <View>
-        {/* <favicon onPress={navigation.navigate('Feed')}/> */}
       </View>
 
       <View>

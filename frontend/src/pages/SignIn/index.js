@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   View,
   Text,
-  Alert,
   TextInput,
   TouchableOpacity,
   ImageBackground,
@@ -29,20 +28,6 @@ const SignIn = () => {
   //#region STATES/VARIABLES
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //#endregion
-
-  //#region FUNCTIONS
-  const handleSubmit = async () => {
-    try {
-      const response = await signIn(email, password);
-
-      if (!response) {
-        Alert.alert("Falha no login", "Credenciais inválidas");
-      }
-    } catch (error) {
-      Alert.alert("Falha no login", "Algo deu errado");
-    }
-  }
   //#endregion
 
   return (
@@ -93,7 +78,7 @@ const SignIn = () => {
 
                 <TouchableOpacity
                   style={styles.button}
-                  onPress={() => handleSubmit()}
+                  onPress={() => signIn(email, password)}
                 >
                   <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>

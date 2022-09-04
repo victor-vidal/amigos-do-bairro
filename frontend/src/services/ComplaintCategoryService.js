@@ -1,15 +1,11 @@
-import { apiUrl } from "../utils/apiUrl";
-import { fetchWithTimeout } from "../utils/fetchWithTimeout";
+import { api } from "./Api";
 
 
 const getComplaintCategories = async (token) => {
-    const response = await fetchWithTimeout(`${apiUrl}/complaints/categories`, {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
+    const response = await api.get("/categories");
 
-    if (response.ok) return await response.json();;
-    return null;
+    if (response.status === 200) return response.data;
+    return;
 };
 
 export { getComplaintCategories };

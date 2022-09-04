@@ -16,8 +16,7 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { apiUrl } from '../../utils/apiUrl.js';
-import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
+import { updateUser } from '../../services/UserService.js';
 
 import { styles } from "./styles.js";
 
@@ -31,26 +30,14 @@ const RedefinePassword = () => {
 
   //FUNCTIONS
   const handleSubmit = async () => {
-    try {
-      const response = await fetchWithTimeout(`${apiUrl}/users/${route.params.user_id}/`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${route.params.token}`
-        },
-        body: JSON.stringify({
-          "password": password,
-        })
-      });
+    const response = await updateUser(route.params.user.id, {
+      "password": password
+    });
 
-      if (response.ok) {
-        const data = await response.json();
-        navigation.navigate("SignIn");
-      } else {
-        Alert.alert("Falha no login", "Credenciais inválidas");
-      }
-    } catch (error) {
-      console.log(error);
+    if (response) {
+      navigation.navigate("SignIn");
+    } else {
+      Alert.alert("Falha na redefinição");
     }
   }
 

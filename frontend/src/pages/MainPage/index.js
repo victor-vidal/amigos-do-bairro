@@ -1,18 +1,16 @@
 import React from 'react';
-import { View, Text, TouchableOpacity,Image, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '../../context/AuthContext.js';
 
 import { styles } from "./styles.js";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList } from 'react-native-gesture-handler';
 
 
 const MainPage = () => {
   //#region 
-  const { token, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -26,7 +24,7 @@ const MainPage = () => {
 
           <View style={styles.containerHeader}>
           <Text style={styles.titleWelcome}>Bem Vindo!(a)</Text>
-          <Text style={styles.text}>Carlos Eduardo</Text>
+          <Text style={styles.text}>{user.firstName} {user.lastName}</Text>
           </View>
 
 

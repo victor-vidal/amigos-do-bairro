@@ -1,38 +1,33 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import * as authService from "../services/AuthService";
-import * as userService from "../services/UserService";
+import { getUsers } from "../services/UserService";
 
 
 const AuthContext = createContext({
-    token: null,
+    user: null,
     loading: true,
     signIn: () => {},
     signOut: () => {},
-    userId: ""
 });
 
 
 // Implementation based on: https://blog.rocketseat.com.br/autenticacao-no-react-native-reactjs-com-context-api-hooks/
 const AuthProvider = (props) => {
     //#region STATES/VARIABLES
-    const [token, setToken] = useState("");
-    const [userId, setUserId] = useState("");
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     //#endregion
 
     //#region USE EFFECTS
     useEffect(() => {
         const loadStorageData = async () => {
-            const storagedToken = await AsyncStorage.getItem("@RNAuth:token");
-            const storagedUserId = await AsyncStorage.getItem("@RNAuth:userId");
+            const storagedUser = await AsyncStorage.getItem("@RNAuth:user");
 
-            if (storagedToken && storagedUserId) {
-                setToken(storagedToken);
-                setUserId(storagedUserId);
+            if (storagedUser) {
+                setUser(JSON.parse(storagedUser));
             } else {
-                setToken(null);
+                setUser(null);
             }
 
             setLoading(false);
@@ -44,17 +39,24 @@ const AuthProvider = (props) => {
 
     //#region FUNCTIONS
     const signIn = async (username, password) => {
-        const response = await authService.signIn(username, password);
+        getUsers().then(async response => {
+            if (!response) {
+                alert("Failed to get users");
+                return;
+            }
 
-        if (response) {
-            setToken(response.access_token);
-            setUserId(response.user_id);
-            await AsyncStorage.setItem("@RNAuth:token", response.access_token);
-            await AsyncStorage.setItem("@RNAuth:userId", response.user_id);
+            const user = response.find(
+                (user) => user.email == username && user.password == password
+            );
 
-            return true;
-        }
-        return false;
+            if (!user) {
+                alert("Credenciais inválidas");
+                return;
+            };
+
+            await AsyncStorage.setItem("@RNAuth:user", JSON.stringify(user));
+            setUser(user);
+        });
     }
 
     const signOut = async () => {
@@ -65,7 +67,7 @@ const AuthProvider = (props) => {
 
     return (
         <AuthContext.Provider
-            value={{ token, loading, signIn, signOut, userId }}
+            value={{ user, signIn, signOut }}
         >
             {props.children}
         </AuthContext.Provider>

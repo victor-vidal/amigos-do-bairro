@@ -20,9 +20,7 @@ import * as Location from "expo-location";
 import { useAuth } from "../../context/AuthContext.js";
 
 import { getComplaintCategories } from "../../services/ComplaintCategoryService.js";
-
-import { apiUrl } from "../../utils/apiUrl.js";
-import { fetchWithTimeout } from "../../utils/fetchWithTimeout.js";
+import { postComplaint } from "../../services/ComplaintService.js";
 
 import { styles } from "./styles.js";
 
@@ -31,7 +29,7 @@ import { styles } from "./styles.js";
 
 const CreateQueixa = () => {
   //#region HOOKS
-  const { token, userId } = useAuth();
+  const { user } = useAuth();
   const navigation = useNavigation();
   //#endregion
 
@@ -51,12 +49,12 @@ const CreateQueixa = () => {
 
   //#region MEMOS
   const complaintCategoryMemo = useMemo(async () => {
-    const data = await getComplaintCategories(token);
+    const data = await getComplaintCategories();
 
     if (data) return data;
 
     Alert.alert("Falha na conexão", "Erro ao recolher categorias de queixas.");
-  }, [token]);
+  }, []);
   //#endregion
 
   //#region USE EFFECTS
@@ -104,26 +102,18 @@ const CreateQueixa = () => {
         return;
       }
 
-      const response = await fetchWithTimeout(`${apiUrl}/complaints/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          "owner_id": userId,
-          "category_id": selectedCategoryId,
-          "title": description,
-          "latitude": currentLatitude,
-          "longitude": currentLongitude,
-          "image": picture
-        })
+      const response = await postComplaint({
+        "owner": user.email,
+        "title": description,
+        "latitude": currentLatitude,
+        "longitude": currentLongitude,
+        "image": picture
       });
 
-      if (response.ok) {
+      if (response) {
         navigation.navigate("MainPage");
       } else {
-        Alert.alert("Falha no login", "Credenciais inválidas");
+        Alert.alert("Falha na criação");
       }
     } catch (error) {
       console.log(error);

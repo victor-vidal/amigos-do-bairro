@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF',
         borderTopLeftRadius: 50,
         borderTopRightRadius: 50,
-        marginTop: '65%',
+        marginTop: '55%',
         paddingStart: '5%',
         paddingEnd: '5%'
     },
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     buttonRegister: {
-        margin: 14,
+        margin: 10,
         alignSelf: 'center'
     },
     buttonRegisterText: {

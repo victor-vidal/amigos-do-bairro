@@ -11,9 +11,6 @@ import * as Animatable from 'react-native-animatable';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { apiUrl } from '../../utils/apiUrl.js';
-import { fetchWithTimeout } from '../../utils/fetchWithTimeout.js';
-
 import { styles } from "./styles.js";
 
     const CheckForgotPassword = () => {
@@ -24,27 +21,7 @@ import { styles } from "./styles.js";
         const navigation = useNavigation();
       
         const handleSubmit = async () => {
-          try {
-            const response = await fetchWithTimeout(`${apiUrl}/auth/check_recovery_number`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                "email": route.params.email,
-                "number": code
-              })
-            });
-      
-            if (response.ok) {
-              const data = await response.json();
-              navigation.navigate("RedefinePassword", { token: data.access_token, user_id: data.user_id });
-            } else {
-              Alert.alert("Falha no login", "Credenciais inválidas");
-            }
-          } catch (error) {
-            console.log(error);
-          }
+          navigation.navigate("RedefinePassword", { user: route.params.user });
         }
       
         return (

@@ -9,7 +9,7 @@ import { PrivateRoutes } from "./PrivateRoutes";
 
 const Routes = () => {
     //#region HOOKS
-    const { token, loading } = useAuth();
+    const { user, loading } = useAuth();
     //#endregion
     
     //#region USE EFFECTS
@@ -25,7 +25,7 @@ const Routes = () => {
     }, [loading]);
 
     return (
-        token? <PrivateRoutes /> : <PublicRoutes />
+        user? <PrivateRoutes /> : <PublicRoutes />
     );
 }
 
