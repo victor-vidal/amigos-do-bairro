@@ -1,9 +1,11 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import * as Animatable from "react-native-animatable";
+import { useNavigation } from "@react-navigation/native";
 
-import { useAuth } from '../../context/AuthContext.js';
+import { Menu } from "../../components/Menu/index.js";
+
+import { useAuth } from "../../context/AuthContext.js";
 
 import { styles } from "./styles.js";
 
@@ -15,30 +17,28 @@ const MainPage = () => {
   //#endregion
 
   return (
-      <View >
-
-        <ImageBackground
-          source={require('../../assets/mainPage.png')}
-          resizeMode="cover"
-          style={styles.image}>
-
-          <View style={styles.containerHeader}>
+    <View >
+      <Menu />
+      <ImageBackground
+        source={require('../../assets/mainPage.png')}
+        resizeMode="cover"
+        style={styles.image}
+      >
+        <View style={styles.containerHeader}>
           <Text style={styles.titleWelcome}>Bem Vindo!(a)</Text>
           <Text style={styles.text}>{user.firstName} {user.lastName}</Text>
-          </View>
-
-
+        </View>
         <Animatable.View
           animation={"fadeInUp"}
           delay={500}
           style={styles.containerForm}
-        > 
+        >
           <Text style={styles.title}>Início</Text>
           <Text style={styles.text}>Numeros de Reclamações!</Text>
 
-          <View style={{ 
+          <View style={{
             flexDirection: 'row'
-            }}>
+          }}>
             <TouchableOpacity
               style={styles.buttonMenu}
               onPress={() => navigation.navigate('CreateQueixa')}
@@ -61,10 +61,8 @@ const MainPage = () => {
             </TouchableOpacity>
           </View>
         </Animatable.View>
-          
-         
-        </ImageBackground>
-      </View>
+      </ImageBackground>
+    </View>
   );
 }
 

@@ -8,6 +8,8 @@ import { getComplaintFeed } from "../../services/ComplaintService";
 import { LikeButton } from '../../services/LikeButton.js';
 import { FollowButton } from '../../services/FollowButton.js';
 
+import { Menu } from '../../components/Menu';
+
 import { useAuth } from '../../context/AuthContext.js';
 
 import { styles } from "./styles.js";
@@ -42,7 +44,8 @@ const Feed = () => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container} >
+      <Menu />
       <View>
 
 

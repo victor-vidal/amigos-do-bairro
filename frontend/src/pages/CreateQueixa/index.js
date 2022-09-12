@@ -17,6 +17,8 @@ import * as ImagePicker from "expo-image-picker";
 
 import * as Location from "expo-location";
 
+import { Menu } from "../../components/Menu/index.js";
+
 import { useAuth } from "../../context/AuthContext.js";
 
 import { getComplaintCategories } from "../../services/ComplaintCategoryService.js";
@@ -175,6 +177,7 @@ const CreateQueixa = () => {
 
   return (
     <View style={styles.container}>
+      <Menu />
       <Animatable.View
         animation={"fadeInLeft"}
         delay={500}
