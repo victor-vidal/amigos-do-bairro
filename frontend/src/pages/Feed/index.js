@@ -21,6 +21,7 @@ const Feed = () => {
 
   //#region 
   const [feed, setFeed] = useState([]);
+  const [statusQueixa, setStatusQueixa] = useState([]);
   const [state_liked, setState] = useState([]);
   //#endregion
 
@@ -35,6 +36,7 @@ const Feed = () => {
   async function loadPage() {
     const memoData = await complaintFeedMemo;
     setFeed(memoData);
+    memoData.resolved? setStatusQueixa("Resolvido"):setStatusQueixa("Não resolvido")
   }
 
   useEffect(() => {
@@ -43,33 +45,26 @@ const Feed = () => {
 
   return (
     <View>
-      <View>
-
-
-      </View>
-
-      <View>
-      </View>
 
       <View>
         <FlatList
           data={feed}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <View style={styles.postView}>
-              <Text>{item.id}</Text>
+            <View>
 
-
+              <Text>{statusQueixa}</Text>
               <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
-              <View>
+              <View style={styles.twoButton}>
                 <LikeButton />
                 <FollowButton />
               </View>
+
             </View>
           )}
         />
-
       </View>
+
     </View>
   );
 }
