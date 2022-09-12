@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     containerHeader: {
         width: '90%',
         marginTop: '40%',
-        paddingEnd: '30%'
     },
     message: {
         fontSize: 28,
@@ -20,7 +19,6 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '90%',
         padding: 10,
-        marginTop: '10%'
     },
     title: {
         color: '#F47E51',

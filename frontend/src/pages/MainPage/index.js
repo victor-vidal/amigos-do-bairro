@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Text, TouchableOpacity, ImageBackground } from "react-native";
+import { View, Text, TouchableOpacity, ImageBackground, ScrollView } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
+import { ComplaintCounter } from "../../components/ComplaintCounter/index.js";
 import { Menu } from "../../components/Menu/index.js";
 
 import { useAuth } from "../../context/AuthContext.js";
@@ -17,7 +18,7 @@ const MainPage = () => {
   //#endregion
 
   return (
-    <View >
+    <ScrollView >
       <Menu />
       <ImageBackground
         source={require('../../assets/mainPage.png')}
@@ -25,8 +26,8 @@ const MainPage = () => {
         style={styles.image}
       >
         <View style={styles.containerHeader}>
-          <Text style={styles.titleWelcome}>Bem Vindo!(a)</Text>
-          <Text style={styles.text}>{user.firstName} {user.lastName}</Text>
+          <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
+          <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
         </View>
         <Animatable.View
           animation={"fadeInUp"}
@@ -34,35 +35,79 @@ const MainPage = () => {
           style={styles.containerForm}
         >
           <Text style={styles.title}>Início</Text>
-          <Text style={styles.text}>Numeros de Reclamações!</Text>
+          <Text style={styles.text}>Numeros de Reclamações</Text>
 
-          <View style={{
-            flexDirection: 'row'
-          }}>
-            <TouchableOpacity
-              style={styles.buttonMenu}
-              onPress={() => navigation.navigate('CreateQueixa')}
-            >
-              <Text style={styles.buttonText}>Criar Queixa</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.buttonMenu}
-              onPress={() => navigation.navigate('Feed')}
-            >
-              <Text style={styles.buttonText}>Feed</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.buttonMenu}
-              onPress={() => signOut()}
-            >
-              <Text style={styles.buttonText}>Sair</Text>
-            </TouchableOpacity>
+          <View
+            style={{
+              marginTop: "5%",
+              height: "100%",
+              backgroundColor: "blue"
+            }}
+          >
+            <View style={{ 
+              flexDirection: 'row',
+              flexWrap: 'wrap'
+            }}>
+              <ComplaintCounter 
+                color="#A3B7FF"
+                complaintCount={385}
+                title="Iluminação"
+              />
+              <ComplaintCounter 
+                color="rgba(39, 194, 0, 0.55)"
+                complaintCount={221}
+                title="Meio Ambiente"
+              />
+              <ComplaintCounter 
+                color="#FCB90D"
+                complaintCount={900}
+                title="Trânsito"
+              />
+            </View>
+            <View style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap'
+            }}>
+              <ComplaintCounter 
+                color="#A3B7FF"
+                complaintCount={344}
+                title="Esgoto"
+              />
+              <ComplaintCounter 
+                color="rgba(39, 194, 0, 0.55)"
+                complaintCount={124}
+                title="Animais"
+              />
+              <ComplaintCounter 
+                color="#FCB90D"
+                complaintCount={30}
+                title="Trânsito"
+              />
+            </View>
+            <View style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap'
+            }}>
+              <ComplaintCounter 
+                color="#A3B7FF"
+                complaintCount="999..."
+                title="Iluminação"
+              />
+              <ComplaintCounter 
+                color="rgba(39, 194, 0, 0.55)"
+                complaintCount={771}
+                title="Meio Ambiente"
+              />
+              <ComplaintCounter 
+                color="#FCB90D"
+                complaintCount={545}
+                title="Trânsito"
+              />
+            </View>
           </View>
         </Animatable.View>
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 }
 
