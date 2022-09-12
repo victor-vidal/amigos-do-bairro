@@ -18,7 +18,7 @@ const MainPage = () => {
   //#endregion
 
   return (
-    <ScrollView >
+    <ScrollView>
       <Menu />
       <ImageBackground
         source={require('../../assets/mainPage.png')}
@@ -41,12 +41,12 @@ const MainPage = () => {
             style={{
               marginTop: "5%",
               height: "100%",
-              backgroundColor: "blue"
+              overflow: 'scroll'
             }}
           >
             <View style={{ 
               flexDirection: 'row',
-              flexWrap: 'wrap'
+              marginBottom: '5%'
             }}>
               <ComplaintCounter 
                 color="#A3B7FF"
@@ -66,7 +66,7 @@ const MainPage = () => {
             </View>
             <View style={{
               flexDirection: 'row',
-              flexWrap: 'wrap'
+              marginBottom: '5%'
             }}>
               <ComplaintCounter 
                 color="#A3B7FF"
@@ -86,7 +86,7 @@ const MainPage = () => {
             </View>
             <View style={{
               flexDirection: 'row',
-              flexWrap: 'wrap'
+              marginBottom: '5%'
             }}>
               <ComplaintCounter 
                 color="#A3B7FF"
