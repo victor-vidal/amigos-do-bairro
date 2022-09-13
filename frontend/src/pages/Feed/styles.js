@@ -1,70 +1,42 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#38A69D'
+    menu:{
+        marginBottom:5,
     },
     containerHeader: {
-        marginTop: '14%',
-        marginBottom: '8%',
-        paddingStart: '5%'
+        width: '90%',
+        marginTop: '90%',
     },
-    message: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#FFF'
+    image:{
+        width: '100%',
+        height:'100%',
+        justifyContent: "center",
+        alignItems: 'center',
+        alignSelf: 'center',
     },
-    containerForm: {
-        flex: 1,
-        backgroundColor: '#FFF',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        paddingStart: '5%',
-        paddingEnd: '5%'
+    flatList: {
+        width:'90%',
     },
-    title: {
+    text:{
+        color: '#F47E51',
+        fontSize: 18,
+        marginBottom: '5%',
+    },
+    titleWelcome:{
+        color: '#F47E51',
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 28,
-        marginBottom: 12
-    },
-    input: {
-        borderBottomWidth: 1,
-        height: 40,
-        marginBottom: 12,
-        fontSize: 16
-    },
-    button: {
-        backgroundColor: '#38A69D',
-        borderRadius: 4,
-        paddingVertical: 8,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 14
-    },
-    buttonText: {
-        fontSize: 18,
-        color: '#FFF',
-        fontWeight: 'bold'
-    },
-    buttonRegister: {
-        margin: 14,
-        alignSelf: 'center'
-    },
-    buttonRegisterText: {
-        color: '#A1A1A1',
+        textAlign: 'left',
+        paddingEnd: '30%',
+        
     },
     postView:{
         width:'100%',
         alignItems:'center',
         marginTop:40,
-    },
-    imageView:{
-        display:'flex',
-        flexDirection:'row',
-        alignItems:'center',
+        borderWidth: 1,
+        borderColor: 'red'
     },
     coverPhoto: {
         width: '90%',
@@ -76,6 +48,21 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'red'
     },
+    twoButton: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    resolvido: {
+        fontSize: 18,
+        color: '#2CDA00',
+        fontWeight: 'bold'
+    },
+    nResolvido: {
+        fontSize: 18,
+        color: '#FF0000',
+        fontWeight: 'bold'
+    },
+    
 });
 
 
