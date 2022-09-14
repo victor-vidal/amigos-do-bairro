@@ -84,11 +84,13 @@ const Feed = () => {
         <View style={styles.containerHeader}>
           <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
           <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
+          <Text style={styles.titleWelcome}> Feed</Text>
           <SelectDropdown
             data={categoryNameList}
             onSelect={(selectedItem, index) => { setSelectedCategoryId(categoryIdList[index]); }}
             buttonTextAfterSelection={(selectedItem, index) => { return selectedItem }}
             rowTextForSelection={(item, index) => { return item }}
+            
           />
         </View>
         <View style={styles.flatList}>

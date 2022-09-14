@@ -57,7 +57,7 @@ const Menu = () => {
                         >
                             <Image 
                                 style={styles.menuHeaderLinkIcon} 
-                                source={require("../../assets/home-page-1.png")} 
+                                source={require("../../assets/home.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
                                 Home
@@ -68,7 +68,9 @@ const Menu = () => {
                             onPressIn={() => navigation.navigate("CreateQueixa")}
                             >
                             <Image 
-                                style={styles.menuHeaderLinkIcon} 
+                                style={styles.menuHeaderLinkIcon}
+                                source={require("../../assets/adicionar-reclamacao.png")} 
+ 
                                 />
                             <Text style={styles.menuHeaderLinkText}>
                                 Nova Reclamação
@@ -79,7 +81,8 @@ const Menu = () => {
                             onPressIn={() => navigation.navigate("Feed")}
                         >
                             <Image 
-                                style={styles.menuHeaderLinkIcon} 
+                                style={styles.menuHeaderLinkIcon}
+                                source={require("../../assets/feed-rss.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
                                 Reclamações
@@ -96,7 +99,8 @@ const Menu = () => {
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.menuHeaderLinkContainer}>
                             <Image 
-                                style={styles.menuHeaderLinkIcon} 
+                                style={styles.menuHeaderLinkIcon}
+                                source={require("../../assets/suporte-tecnico.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
                                 Suporte

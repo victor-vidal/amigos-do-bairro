@@ -48,7 +48,8 @@ const MainPage = () => {
               flexDirection: 'row',
               marginBottom: '5%'
             }}>
-              <ComplaintCounter 
+              
+              <ComplaintCounter
                 color="#A3B7FF"
                 complaintCount={385}
                 title="Iluminação"

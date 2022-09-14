@@ -33,10 +33,16 @@ const styles = StyleSheet.create({
     },
     postView:{
         width:'100%',
-        alignItems:'center',
+        alignItems:"flex-start",
         marginTop:40,
-        borderWidth: 1,
-        borderColor: 'red'
+        borderWidth: 0,
+        borderColor: 'grey',
+        borderRadius:10,
+        paddingStart: 20,
+        backgroundColor: '#E6E6E6',
+        shadowColor: 'red'
+        
+
     },
     coverPhoto: {
         width: '90%',
@@ -45,14 +51,15 @@ const styles = StyleSheet.create({
         marginTop:20,
         borderRadius:10,
         resizeMode: 'cover',
-        borderWidth: 1,
-        borderColor: 'red'
+        borderWidth: 2,
+        borderColor: 'grey'
     },
     twoButton: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     resolvido: {
+        paddingTop: 10,
         fontSize: 18,
         color: '#2CDA00',
         fontWeight: 'bold'
@@ -60,8 +67,9 @@ const styles = StyleSheet.create({
     nResolvido: {
         fontSize: 18,
         color: '#FF0000',
-        fontWeight: 'bold'
-    },
+        fontWeight: 'bold',
+        paddingTop: 10
+    }
     
 });
 
