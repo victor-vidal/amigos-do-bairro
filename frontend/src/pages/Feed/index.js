@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Image, TouchableWithoutFeedback, ImageBackground } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert, Image, TouchableWithoutFeedback, ImageBackground, SafeAreaView, Keyboard } from 'react-native';
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
@@ -74,49 +74,55 @@ const Feed = () => {
   }, [])
 
   return (
-    <View>
-      <Menu style={styles.menu} />
-      <ImageBackground
-        source={require('../../assets/mainPage.png')}
-        resizeMode="cover"
-        style={styles.image}
-      >
-        <View style={styles.containerHeader}>
-          <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
-          <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
-          <Text style={styles.titleWelcome}> Feed</Text>
-          <SelectDropdown
-            data={categoryNameList}
-            onSelect={(selectedItem, index) => { setSelectedCategoryId(categoryIdList[index]); }}
-            buttonTextAfterSelection={(selectedItem, index) => { return selectedItem }}
-            rowTextForSelection={(item, index) => { return item }}
-            
-          />
-        </View>
-        <View style={styles.flatList}>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
+            <Menu style={styles.menu} />
+            <ImageBackground
+              source={require('../../assets/mainPage.png')}
+              resizeMode="cover"
+              style={styles.image}
+            >
+              <View style={styles.containerHeader}>
+                <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
+                <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
+                <Text style={styles.titleWelcome}> Feed</Text>
+                <SelectDropdown
+                  data={categoryNameList}
+                  onSelect={(selectedItem, index) => { setSelectedCategoryId(categoryIdList[index]); }}
+                  buttonTextAfterSelection={(selectedItem, index) => { return selectedItem }}
+                  rowTextForSelection={(item, index) => { return item }}
+                  
+                />
+              </View>
+              <View style={styles.flatList}>
 
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={feed}
-            keyExtractor={item => String(item.id)}
-            renderItem={({ item }) => (
-              <View style={styles.postView}>
+                <FlatList
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                  data={feed}
+                  keyExtractor={item => String(item.id)}
+                  renderItem={({ item }) => (
+                    <View style={styles.postView}>
 
-                {item.resolved ? <Text style={styles.resolvido}>Resolvida!</Text> : <Text style={styles.nResolvido}>Não resolvida...</Text>}
-                <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
-                <View style={styles.twoButton}>
-                  <LikeButton />
-                  <FollowButton />
-                </View>
+                      {item.resolved ? <Text style={styles.resolvido}>Resolvida!</Text> : <Text style={styles.nResolvido}>Não resolvida...</Text>}
+                      <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+                      <View style={styles.twoButton}>
+                        <LikeButton />
+                        <FollowButton />
+                      </View>
+
+                    </View>
+                  )}
+                />
 
               </View>
-            )}
-          />
-
-        </View>
-      </ImageBackground>
-    </View>
+            </ImageBackground>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
