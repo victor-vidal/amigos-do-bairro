@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     },
     containerHeader: {
         width: '90%',
-        marginTop: '90%',
+        marginTop: '20%',
     },
     image:{
         width: '100%',
@@ -16,7 +16,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     flatList: {
+        flex: 1,
         width:'90%',
+        marginBottom: '10%'
     },
     text:{
         color: '#F47E51',
@@ -41,8 +43,6 @@ const styles = StyleSheet.create({
         paddingStart: 20,
         backgroundColor: '#E6E6E6',
         shadowColor: 'red'
-        
-
     },
     coverPhoto: {
         width: '90%',

@@ -1,5 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert, Image, TouchableWithoutFeedback, ImageBackground, SafeAreaView, Keyboard } from 'react-native';
+import { 
+  View, 
+  Text, 
+  FlatList, 
+  Alert, 
+  Image, 
+  TouchableWithoutFeedback, 
+  ImageBackground, 
+  Keyboard,
+  KeyboardAvoidingView
+} from 'react-native';
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
@@ -13,6 +23,7 @@ import { getComplaintCategories } from "../../services/ComplaintCategoryService.
 import { useAuth } from '../../context/AuthContext.js';
 
 import { styles } from "./styles.js";
+import CheckBox from 'react-native-check-box';
 
 
 const Feed = () => {
@@ -23,10 +34,12 @@ const Feed = () => {
 
   //#region 
   const [feed, setFeed] = useState([]);
+  const [feedDisplay, setFeedDisplay] = useState([]);
   const [state_liked, setState] = useState([]);
   const [statusQueixa, setStatusQueixa] = useState([]);
   const [categoryIdList, setCategoryIdList] = useState([]);
   const [categoryNameList, setCategoryNameList] = useState([]);
+  const [myComplaintsFlag, setMyComplaintsFlag] = useState(false);  
   //#endregion
 
   const complaintFeedMemo = useMemo(async () => {
@@ -35,7 +48,7 @@ const Feed = () => {
     if (data) return data;
 
     Alert.alert("Falha na conexão", "Erro ao recolher as queixas do feed.");
-  }, [user]);
+  }, []);
 
   const complaintCategoryMemo = useMemo(async () => {
     const data = await getComplaintCategories();
@@ -48,6 +61,7 @@ const Feed = () => {
   async function loadPage() {
     const memoData = await complaintFeedMemo;
     setFeed(memoData);
+    setFeedDisplay(memoData);
     memoData.resolved ? setStatusQueixa("Resolvido") : setStatusQueixa("Não resolvido")
   }
 
@@ -73,8 +87,17 @@ const Feed = () => {
     loadPage();
   }, [])
 
+  useEffect(() => {
+    if (!myComplaintsFlag) {
+      setFeedDisplay(feed);
+      return;
+    }
+
+    setFeedDisplay(feed.filter(item => item.owner == user.email));
+  }, [myComplaintsFlag]);
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
@@ -95,13 +118,20 @@ const Feed = () => {
                   rowTextForSelection={(item, index) => { return item }}
                   
                 />
+                <CheckBox 
+                  style={{ marginTop: 10, marginBottom: 10 }}
+                  isChecked={myComplaintsFlag}
+                  onClick={() => setMyComplaintsFlag(prevState => !prevState)} 
+                  rightText="Filtrar por minhas queixas"
+                  rightTextStyle={{ color: '#F47E51', fontSize: 18 }}
+                />
               </View>
               <View style={styles.flatList}>
 
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   showsHorizontalScrollIndicator={false}
-                  data={feed}
+                  data={feedDisplay}
                   keyExtractor={item => String(item.id)}
                   renderItem={({ item }) => (
                     <View style={styles.postView}>
@@ -116,13 +146,12 @@ const Feed = () => {
                     </View>
                   )}
                 />
-
               </View>
             </ImageBackground>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 

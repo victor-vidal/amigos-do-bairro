@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Image, Text } from "react-native";
-import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
 
 import { useAuth } from "../../context/AuthContext";
@@ -9,7 +8,7 @@ import { styles } from "./styles";
 
 
 const Menu = () => {
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
     const navigation = useNavigation();
 
     const [toggled, setToggled] = useState(false);
@@ -104,6 +103,18 @@ const Menu = () => {
                             />
                             <Text style={styles.menuHeaderLinkText}>
                                 Suporte
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity 
+                            style={styles.menuHeaderLinkContainer}
+                            onPressIn={() => signOut()}
+                        >
+                            <Image 
+                                style={styles.menuHeaderLinkIcon}
+                                source={require("../../assets/exit-door.jpg")} 
+                            />
+                            <Text style={styles.menuHeaderLinkText}>
+                                Sair
                             </Text>
                         </TouchableOpacity>
                     </View>
