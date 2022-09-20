@@ -6,28 +6,25 @@ const styles = StyleSheet.create({
         backgroundColor: '#38A69D'
     },
     containerHeader: {
-        marginTop: '14%',
+        marginTop: '24%',
         marginBottom: '8%',
         paddingStart: '5%'
     },
-    message: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#FFF'
-    },
     containerForm: {
         flex: 1,
-        backgroundColor: '#FFF',
+        width: '100%',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingStart: '5%',
-        paddingEnd: '5%'
+        paddingEnd: '5%',
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginTop: 28,
-        marginBottom: 12
+        marginBottom: 12,
+        color:'#54528E',
+
     },
     input: {
         borderBottomWidth: 1,
@@ -36,27 +33,60 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     button: {
-        backgroundColor: '#38A69D',
+        backgroundColor: '#F47E51',
         borderRadius: 4,
         paddingVertical: 8,
-        width: '100%',
+        paddingHorizontal:8,
+        marginHorizontal:'5%',
         alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 14
+        justifyContent: 'space-between',
     },
     buttonText: {
         fontSize: 18,
         color: '#FFF',
         fontWeight: 'bold'
     },
-    buttonRegister: {
-        margin: 14,
-        alignSelf: 'center'
+    flatlist: {
+
     },
-    buttonRegisterText: {
-        color: '#A1A1A1',
+    image: {
+        width: '100%',
+        height: '100%',
+        justifyContent: "center",
+        alignItems: 'flex-start',
+        alignSelf: 'center',
     },
-    
+    buttonImage: {
+        width: '2%',
+        height: '8%',
+        resizeMode: 'stretch',
+    },
+    text:{
+        color: '#F47E51',
+        fontSize: 18,
+        marginBottom: '5%',
+    },
+    titleWelcome:{
+        color: '#F47E51',
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'left',
+        paddingEnd: '30%',
+        
+    },
+    stretch: {
+        width: '100%',
+        height: '50%',
+        resizeMode: 'stretch',
+      },
+      buttonLast: {
+        backgroundColor: '#F47E51',
+        borderRadius: 4,
+        paddingVertical: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop:'5%',
+    },
 });
 
 export { styles };
