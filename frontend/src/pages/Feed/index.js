@@ -8,7 +8,8 @@ import {
   TouchableWithoutFeedback, 
   ImageBackground, 
   Keyboard,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  TouchableOpacity
 } from 'react-native';
 import SelectDropdown from "react-native-select-dropdown";
 import * as Animatable from 'react-native-animatable';
@@ -134,16 +135,15 @@ const Feed = () => {
                   data={feedDisplay}
                   keyExtractor={item => String(item.id)}
                   renderItem={({ item }) => (
-                    <View style={styles.postView}>
-
+                    <TouchableOpacity style={styles.postView} onPress={() => navigation.navigate('Queixa', item)}>
                       {item.resolved ? <Text style={styles.resolvido}>Resolvida!</Text> : <Text style={styles.nResolvido}>Não resolvida...</Text>}
-                      <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }} />
+                      <Image style={styles.coverPhoto} source={{ uri: `data:image/jpeg;base64,${item.image}` }}/>
                       <View style={styles.twoButton}>
                         <LikeButton />
                         <FollowButton />
                       </View>
 
-                    </View>
+                    </TouchableOpacity>
                   )}
                 />
               </View>
