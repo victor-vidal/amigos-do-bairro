@@ -38,8 +38,8 @@ const Feed = () => {
   const [feedDisplay, setFeedDisplay] = useState([]);
   const [state_liked, setState] = useState([]);
   const [statusQueixa, setStatusQueixa] = useState([]);
-  const [categoryIdList, setCategoryIdList] = useState([]);
-  const [categoryNameList, setCategoryNameList] = useState([]);
+  const [selectedCategoryName, setSelectedCategoryName] = useState("Todas");
+  const [categoryNameList, setCategoryNameList] = useState(["Todas"]);
   const [myComplaintsFlag, setMyComplaintsFlag] = useState(false);  
   //#endregion
 
@@ -77,11 +77,8 @@ const Feed = () => {
   useEffect(() => {
     const loadData = async () => {
       const memoData = await complaintCategoryMemo;
-      setCategoryIdList(
-        memoData.map(complaintCategory => complaintCategory.id)
-      );
-      setCategoryNameList(
-        memoData.map(complaintCategory => complaintCategory.name)
+      setCategoryNameList(prevState =>
+        [...prevState, ...memoData.map(complaintCategory => complaintCategory.name)]
       );
     }
     loadData();
@@ -89,12 +86,21 @@ const Feed = () => {
   }, [])
 
   useEffect(() => {
+    if (selectedCategoryName == 'Todas') {
+      setFeedDisplay(feed);
+      return;
+    }
+
+    setFeedDisplay(feed.filter(complaint => complaint.category == selectedCategoryName));
+  }, [selectedCategoryName]);
+
+  useEffect(() => {
     if (!myComplaintsFlag) {
       setFeedDisplay(feed);
       return;
     }
 
-    setFeedDisplay(feed.filter(item => item.owner == user.email));
+    setFeedDisplay(feed.filter(complaint => complaint.owner == user.email));
   }, [myComplaintsFlag]);
 
   return (
@@ -112,13 +118,17 @@ const Feed = () => {
                 <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
                 <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
                 <Text style={styles.titleWelcome}> Feed</Text>
-                <SelectDropdown
-                  data={categoryNameList}
-                  onSelect={(selectedItem, index) => { setSelectedCategoryId(categoryIdList[index]); }}
-                  buttonTextAfterSelection={(selectedItem, index) => { return selectedItem }}
-                  rowTextForSelection={(item, index) => { return item }}
-                  
-                />
+                <View style={{justifyContent: 'center', width: '100%', alignItems: 'center'}} >
+                  <SelectDropdown
+                    data={categoryNameList}
+                    defaultValue="Todas"
+                    onSelect={(selectedItem, index) => { setSelectedCategoryName(selectedItem) }}
+                    buttonTextAfterSelection={(selectedItem, index) =>  selectedItem }
+                    rowTextForSelection={(item, index) => item}
+                    buttonTextStyle={{ color: '#F47E51', fontSize: 18 }}
+                    rowTextStyle={{ color: '#F47E51', fontSize: 18 }}
+                  />
+                </View>
                 <CheckBox 
                   style={{ marginTop: 10, marginBottom: 10 }}
                   isChecked={myComplaintsFlag}
