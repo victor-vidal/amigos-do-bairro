@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   ImageBackground,
   Image,
+  ScrollView,
 } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from "@react-navigation/native";
@@ -26,6 +27,7 @@ import * as Location from "expo-location";
 import { Menu } from "../../components/Menu/index.js";
 
 import { useAuth } from "../../context/AuthContext.js";
+import { useLang } from "../../context/LanguageContext.js";
 
 import { getComplaintCategories } from "../../services/ComplaintCategoryService.js";
 import { postComplaint } from "../../services/ComplaintService.js";
@@ -38,6 +40,7 @@ import { styles } from "./styles.js";
 const CreateQueixa = () => {
   //#region HOOKS
   const { user } = useAuth();
+  const { language } = useLang();
   const navigation = useNavigation();
   //#endregion
 
@@ -182,94 +185,92 @@ const CreateQueixa = () => {
   //#endregion
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
-            <Menu />
-            <ImageBackground
-              source={require('../../assets/mainPage.png')}
-              resizeMode="cover"
-              style={styles.image}
-            >
-              <Animatable.View
-                animation={"fadeInLeft"}
-                delay={500}
-                style={styles.containerHeader}
+    <ScrollView>
+
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.container}>
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={styles.container}>
+              <Menu />
+              <ImageBackground
+                source={require('../../assets/mainPage.png')}
+                resizeMode="cover"
+                style={styles.image}
               >
-                <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
-                <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
-                <Text style={styles.titleWelcome}>Criar Queixa</Text>
-              </Animatable.View>
-
-              <Animatable.View
-                animation={"fadeInUp"}
-                delay={500}
-                style={styles.containerForm}
-              >
-                <Text style={styles.title}>Foto da queixa</Text>
-                <View style={{
-                  flexDirection: 'row',
-                  marginTop: '5%',
-                  marginBottom: '5%',
-                  alignContent:'center',
-                  alignItems:'center',
-                  alignSelf:'center',
-                }}>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={imagePickerCallC}
-                  >
-                    <Image
-                    //style={styles.stretch}
-                    //source={require('../../../assets/galeria.jpeg')}
-                    
-                    />
-                    <Text style={styles.buttonText}>Tirar Foto</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={imagePickerCallG}
-                  >
-                    <Text style={styles.buttonText}>Galeria</Text>
-                  </TouchableOpacity>
-                </View>
-                <Text style={styles.title}>Descrição da queixa</Text>
-                <TextInput
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  placeholder="Descreva sua queixa.."
-                  style={styles.input}
-                  onChangeText={queixaInput => setDescription(queixaInput)}
-                />
-
-                <Text style={styles.title}>Tipo de queixa</Text>
-                <SelectDropdown
-                  data={categoryNameList}
-                  onSelect={(selectedItem, index) => {
-                    setSelectedCategoryId(categoryIdList[index]);
-                  }}
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item
-                  }}
-                />
-
-                <TouchableOpacity
-                  style={styles.buttonLast}
-                  onPress={() => handleComplaintSubmission()}
+                <Animatable.View
+                  animation={"fadeInLeft"}
+                  delay={500}
+                  style={styles.containerHeader}
                 >
-                  <Text style={styles.buttonText}>Criar</Text>
-                </TouchableOpacity>
+                  <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
+                  <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
+                  <Text style={styles.titleWelcome}>Criar Queixa</Text>
+                </Animatable.View>
 
-              </Animatable.View>
-            </ImageBackground>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+                <Animatable.View
+                  animation={"fadeInUp"}
+                  delay={500}
+                  style={styles.containerForm}
+                >
+                  <Text style={styles.title}>Foto da queixa</Text>
+                  <View style={{
+                    flexDirection: 'row',
+                    marginTop: '5%',
+                    marginBottom: '5%',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                  }}>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={imagePickerCallC}
+                    >
+                      <Text style={styles.buttonText}>Tirar Foto</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={imagePickerCallG}
+                    >
+                      <Text style={styles.buttonText}>Galeria</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <Text style={styles.title}>Descrição da queixa</Text>
+                  <TextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    placeholder="Descreva sua queixa.."
+                    style={styles.input}
+                    onChangeText={queixaInput => setDescription(queixaInput)}
+                  />
+
+                  <Text style={styles.title}>Tipo de queixa</Text>
+                  <SelectDropdown
+                    data={categoryNameList}
+                    onSelect={(selectedItem, index) => {
+                      setSelectedCategoryId(categoryIdList[index]);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return selectedItem
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return item
+                    }}
+                  />
+
+                  <TouchableOpacity
+                    style={styles.buttonLast}
+                    onPress={() => handleComplaintSubmission()}
+                  >
+                    <Text style={styles.buttonText}>Criar</Text>
+                  </TouchableOpacity>
+
+                </Animatable.View>
+              </ImageBackground>
+            </View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ScrollView>
   );
 }
 

@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
     },
     containerHeader: {
         marginTop: '24%',
-        marginBottom: '8%',
         paddingStart: '5%'
     },
     containerForm: {
@@ -86,6 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop:'5%',
+        marginBottom: '5%'
     },
 });
 

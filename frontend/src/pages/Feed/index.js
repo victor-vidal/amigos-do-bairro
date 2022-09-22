@@ -123,7 +123,7 @@ const Feed = () => {
                     data={categoryNameList}
                     defaultValue="Todas"
                     onSelect={(selectedItem, index) => { setSelectedCategoryName(selectedItem) }}
-                    buttonTextAfterSelection={(selectedItem, index) =>  selectedItem }
+                    buttonTextAfterSelection={(selectedItem, index) => selectedItem }
                     rowTextForSelection={(item, index) => item}
                     buttonTextStyle={{ color: '#F47E51', fontSize: 18 }}
                     rowTextStyle={{ color: '#F47E51', fontSize: 18 }}

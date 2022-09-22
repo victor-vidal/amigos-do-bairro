@@ -7,6 +7,7 @@ import { ComplaintCounter } from "../../components/ComplaintCounter/index.js";
 import { Menu } from "../../components/Menu/index.js";
 
 import { useAuth } from "../../context/AuthContext.js";
+import { useLang } from "../../context/LanguageContext.js";
 
 import { styles } from "./styles.js";
 
@@ -14,6 +15,7 @@ import { styles } from "./styles.js";
 const MainPage = () => {
   //#region 
   const { user, signOut } = useAuth();
+  const { language } = useLang();
   const navigation = useNavigation();
   //#endregion
 
@@ -26,7 +28,9 @@ const MainPage = () => {
         style={styles.image}
       >
         <View style={styles.containerHeader}>
-          <Text style={styles.titleWelcome}>Bem Vindo(a)</Text>
+          <Text style={styles.titleWelcome}>
+            {language == 'pt-BR'? "Bem Vindo(a)" : "Welcome"}
+          </Text>
           <Text style={styles.text}>{user.firstName} {user.lastName}!</Text>
         </View>
         <Animatable.View
@@ -34,8 +38,12 @@ const MainPage = () => {
           delay={500}
           style={styles.containerForm}
         >
-          <Text style={styles.title}>Início</Text>
-          <Text style={styles.text}>Numeros de Reclamações</Text>
+          <Text style={styles.title}>
+            {language == 'pt-BR'? "Início" : "Home"}
+          </Text>
+          <Text style={styles.text}>
+            {language == 'pt-BR'? "Numeros de Reclamações" : "Number of Complaints"}
+          </Text>
 
           <View
             style={{
@@ -52,17 +60,17 @@ const MainPage = () => {
               <ComplaintCounter
                 color="#A3B7FF"
                 complaintCount={385}
-                title="Iluminação"
-              />
+                title={language == 'pt-BR'? "Iluminação" : "Street lighting"}
+                />
               <ComplaintCounter 
                 color="rgba(39, 194, 0, 0.55)"
                 complaintCount={221}
-                title="Meio Ambiente"
+                title={language == 'pt-BR'? "Meio Ambiente" : "Environment"}
               />
               <ComplaintCounter 
                 color="#FCB90D"
                 complaintCount={900}
-                title="Trânsito"
+                title={language == 'pt-BR'? "Trânsito" : "Traffic"}
               />
             </View>
             <View style={{
@@ -72,17 +80,17 @@ const MainPage = () => {
               <ComplaintCounter 
                 color="#A3B7FF"
                 complaintCount={344}
-                title="Esgoto"
-              />
+                title={language == 'pt-BR'? "Esgoto" : "Sewage"}
+                />
               <ComplaintCounter 
                 color="rgba(39, 194, 0, 0.55)"
                 complaintCount={124}
-                title="Animais"
+                title={language == 'pt-BR'? "Animais" : "Animals"}
               />
               <ComplaintCounter 
                 color="#FCB90D"
                 complaintCount={30}
-                title="Trânsito"
+                title={language == 'pt-BR'? "Trânsito" : "Traffic"}
               />
             </View>
             <View style={{
@@ -92,17 +100,17 @@ const MainPage = () => {
               <ComplaintCounter 
                 color="#A3B7FF"
                 complaintCount="999..."
-                title="Iluminação"
+                title={language == 'pt-BR'? "Iluminação" : "Street lighting"}
               />
               <ComplaintCounter 
                 color="rgba(39, 194, 0, 0.55)"
                 complaintCount={771}
-                title="Meio Ambiente"
+                title={language == 'pt-BR'? "Meio Ambiente" : "Environment"}
               />
               <ComplaintCounter 
                 color="#FCB90D"
                 complaintCount={545}
-                title="Trânsito"
+                title={language == 'pt-BR'? "Trânsito" : "Traffic"}
               />
             </View>
           </View>

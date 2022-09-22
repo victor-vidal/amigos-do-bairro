@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Image, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import SelectDropdown from "react-native-select-dropdown";
 
 import { useAuth } from "../../context/AuthContext";
+import { useLang } from "../../context/LanguageContext";
 
 import { styles } from "./styles";
 
 
 const Menu = () => {
     const { user, signOut } = useAuth();
+    const { language, changeLanguage } = useLang();
     const navigation = useNavigation();
 
     const [toggled, setToggled] = useState(false);
@@ -41,7 +44,7 @@ const Menu = () => {
                     />
                     <View style={styles.menuHeaderTextContainer}>
                         <Text style={styles.menuHeaderText}>
-                            Bem vindo(a)
+                            {language == 'pt-BR'? "Bem vindo(a)" : "Welcome"}
                         </Text>
                         <Text style={styles.menuHeaderText}>
                             {user.firstName} {user.lastName}
@@ -72,7 +75,7 @@ const Menu = () => {
  
                                 />
                             <Text style={styles.menuHeaderLinkText}>
-                                Nova Reclamação
+                                {language == 'pt-BR'? "Nova Reclamação" : "New Complaint"}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
@@ -84,7 +87,7 @@ const Menu = () => {
                                 source={require("../../assets/feed-rss.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
-                                Reclamações
+                                {language == 'pt-BR'? "Reclamações" : "Complaints"}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.menuHeaderLinkContainer}>
@@ -93,7 +96,7 @@ const Menu = () => {
                                 source={require("../../assets/bulb-10.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
-                                Favoritos
+                                {language == 'pt-BR'? "Favoritos" : "Favorites"}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.menuHeaderLinkContainer}>
@@ -102,7 +105,7 @@ const Menu = () => {
                                 source={require("../../assets/suporte-tecnico.png")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
-                                Suporte
+                                {language == 'pt-BR'? "Suporte" : "Support"}
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
@@ -114,9 +117,28 @@ const Menu = () => {
                                 source={require("../../assets/exit-door.jpg")} 
                             />
                             <Text style={styles.menuHeaderLinkText}>
-                                Sair
+                                {language == 'pt-BR'? "Sair" : "Exit"}
                             </Text>
                         </TouchableOpacity>
+                    </View>
+                    <View 
+                        style={{
+                            marginTop: '20%',
+                            justifyContent: 'center', 
+                            width: '100%', 
+                            alignItems: 'center'
+                        }} 
+                    >
+                        <SelectDropdown 
+                            buttonStyle={{backgroundColor: "white", borderWidth: 0.5}}
+                            data={['pt-BR', 'en']}
+                            defaultValue={language}
+                            onSelect={(selectedItem, index) => changeLanguage(selectedItem)}
+                            buttonTextAfterSelection={(selectedItem, index) => selectedItem}
+                            rowTextForSelection={(item, index) => item}
+                            buttonTextStyle={{ color: '#F47E51', fontSize: 18 }}
+                            rowTextStyle={{ color: '#F47E51', fontSize: 18 }}
+                        />
                     </View>
                 </View>
             </View>
