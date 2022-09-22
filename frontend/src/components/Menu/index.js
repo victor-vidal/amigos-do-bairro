@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Image, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import * as ScreenOrientation from 'expo-screen-orientation';   
 import { useAuth } from "../../context/AuthContext";
 
 import { styles } from "./styles";
@@ -12,6 +12,22 @@ const Menu = () => {
     const navigation = useNavigation();
 
     const [toggled, setToggled] = useState(false);
+
+    const [orientationIsLandscape,setOrientation] = useState(true);
+
+    async function changeScreenOrientation(){
+        if(orientationIsLandscape==true){
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+        }
+        else{
+            ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+        }
+    }
+
+    const toggleOrientation = () => {
+        setOrientation(!orientationIsLandscape);
+        changeScreenOrientation();
+    }
 
     return (
         <View style={styles.container}>
@@ -103,6 +119,15 @@ const Menu = () => {
                             />
                             <Text style={styles.menuHeaderLinkText}>
                                 Suporte
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.menuHeaderLinkContainer} onPress={toggleOrientation}>
+                            <Image 
+                                style={styles.menuHeaderLinkIcon}
+                                source={require("../../assets/rotation.png")} 
+                            />
+                            <Text style={styles.menuHeaderLinkText}>
+                                Orientation
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
