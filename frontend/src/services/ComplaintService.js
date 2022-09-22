@@ -19,4 +19,16 @@ const postComplaint = async (data) => {
     return;
 };
 
-export { getComplaintFeed, postComplaint };
+const resolveComplaint = async (complaintId) => {
+    const response = await api.patch("/complaints/" + complaintId, {
+        "resolved": true
+    }, {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    return response.status === 200;
+};
+
+export { getComplaintFeed, postComplaint, resolveComplaint };
